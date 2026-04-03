@@ -10,15 +10,24 @@
     
     body {
       font-family: 'Outfit', sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #2d3142 50%, #0f3460 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: white;
       padding: 20px;
       position: relative;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /* --- NOUVEAU FOND AVEC VOTRE IMAGE denim.png --- */
+      background-image: url('denim.jpg');
+      background-size: cover;      /* Pour que l'image couvre tout l'écran */
+      background-attachment: fixed; /* Pour que l'image reste fixe même si on scrolle */
+      background-position: center;   /* Centrer l'image */
+      background-repeat: no-repeat; /* Ne pas répéter l'image */
+      
+      /* En cas d'erreur de chargement de l'image, on garde une couleur de secours */
+      background-color: #1a1a2e;
     }
 
 #background-pattern {
