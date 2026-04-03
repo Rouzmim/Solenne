@@ -34,7 +34,7 @@
 
 .bg-sticker {
   position: absolute; /* Indispensable pour le placement via JS */
-  width: 130px;        /* Taille des photos */
+  width: 150px;        /* Taille des photos */
   height: auto;
   opacity: 0.9;      /* Transparence */
   z-index: 1;
@@ -138,38 +138,37 @@
 
 function createFixedGrid() {
   const container = document.getElementById('background-pattern');
-  // J'augmente légèrement le spacing pour gérer les rotations à 45° sans superposition
   const spacing = 200; 
   let images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
   
-  // On mélange l'ordre des 9 images une seule fois pour la grille
   images.sort(() => Math.random() - 0.5); 
 
-  // On génère 10 lignes et 10 colonnes pour bien couvrir l'écran
   for (let row = 0; row < 10; row++) {
     for (let col = 0; col < 10; col++) {
+      
+      // --- LOGIQUE DE CASE VIDE ---
+      // Math.random() < 0.2 signifie qu'il y a 20% de chance que la case soit vide.
+      // Tu peux changer 0.2 par 0.1 (moins de vides) ou 0.3 (plus de vides).
+      if (Math.random() < 0.2) {
+        continue; // On passe à la case suivante sans rien créer
+      }
+      // ----------------------------
+
       const img = document.createElement('img');
-      // Logique 3x3 pour éviter les répétitions directes
       const imgIndex = (row % 3) * 3 + (col % 3);
       img.src = images[imgIndex];
       img.className = 'bg-sticker';
 
-      // Positionnement strict en grille
       img.style.left = (col * spacing) + "px";
       img.style.top = (row * spacing) + "px";
 
-      // --- ICI LA ROTATION ALEATOIRE DE -45 à +45° ---
-      // Math.random() donne entre 0 et 1.
-      // * 91 donne entre 0 et 90.99.
-      // Math.floor() donne un entier entre 0 et 90.
-      // - 45 donne un entier entre -45 et +45.
       const randomRotation = Math.floor(Math.random() * 91) - 45; 
       img.style.transform = `rotate(${randomRotation}deg)`;
-      // ------------------------------------------------
 
       container.appendChild(img);
     }
   }
+}
 }
 
 createFixedGrid();
