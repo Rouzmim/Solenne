@@ -34,9 +34,9 @@
 
     .bg-sticker {
       position: absolute;
-      width: 80px;
+      width: 200px;
       height: auto;
-      opacity: 0.15;
+      opacity: 0.9;
       filter: grayscale(10%); /* Un peu moins de gris pour voir les couleurs */
     }
 
@@ -81,24 +81,24 @@
   <div class="denim-texture"></div>
   
   <div class="container">
-    <h1>✨ Anniversaire Solenne ✨</h1>
-    <div class="subtitle">🤠 COWGIRL EDITION 🤠</div>
+    <h1> Canadian Tuxedo in IN</h1>
+    <div class="subtitle"> Solenne a 30 ans</div>
     
     <div class="wheel-section">
-      <h2>🎡 Tourne la Roue du Destin 🎡</h2>
+      <h2>🎡 Tourne la Roue du Destin de Sheriff 🎡</h2>
       <div class="wheel-container">
         <div class="pointer"></div>
         <svg id="wheel" width="420" height="420" viewBox="0 0 400 400"></svg>
         <div class="wheel-center"></div>
       </div>
-      <button id="spinBtn" onclick="spinWheel()">✨ SPIN! ✨</button>
+      <button id="spinBtn" onclick="spinWheel()"> Découvre ton cadeau </button>
       <div id="result"></div>
     </div>
     
     <div class="messages-section">
-      <h2>💌 Messages de Cowgirls 💌</h2>
+      <h2>💌 Mur des mots doux 💌</h2>
       <div class="message-input">
-        <input type="text" id="msg" placeholder="Laisse un message à Solenne... 🤠">
+        <input type="text" id="msg" placeholder="Laisse un message à Solenne pour qu'elle n'oublie jamais cet anniversaire">
         <button class="send-btn" onclick="sendMessage()">Envoyer</button>
       </div>
       <div id="messages"></div>
@@ -122,13 +122,12 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const lots = ["👖 DENIM ON DENIM!", "🎁 Cadeau Surprise", "⭐ Tu Brilles!", "🤠 Cowgirl Queen", "💎 VIP PASS", "🌟 SHOPPING ILLIMITÉ"];
+    const lots = ["Paye un shot à Solenne", " Solenne t'offres un goal ", "", "Paye un verre de vin à solenne ", " Solenne te fait un bisou ", " 6-7"];
     const denimShades = ["#1a3a52", "#2d4e6b", "#1e2e4a", "#3d5a7a", "#2a4569", "#1f3a5c"];
 
     function createBackgroundPattern() {
       const container = document.getElementById('background-pattern');
       const numberOfImages = 25;
-      // VERIFIE BIEN SI C'EST .png ou .PNG ci-dessous :
       const imageNames = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png'];
 
       for (let i = 0; i < numberOfImages; i++) {
@@ -139,7 +138,7 @@
 
         const top = Math.random() * 100;
         const left = Math.random() * 100;
-        const rotation = Math.floor(Math.random() * 181) - 90;
+        const rotation = Math.floor(Math.random() * 181) -60;
 
         img.style.top = `${top}%`;
         img.style.left = `${left}%`;
