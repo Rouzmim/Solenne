@@ -1,367 +1,60 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Anniversaire Solenne 🎉</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      padding: 20px;
-    }
-    
-    .container {
-      background: rgba(0, 0, 0, 0.3);
-      padding: 40px;
-      border-radius: 20px;
-      max-width: 700px;
-      width: 100%;
-    }
-    
-    h1 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 2.5em;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    }
-    
-    h2 {
-      margin-bottom: 20px;
-      font-size: 1.5em;
-    }
-    
-    .wheel-section {
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    
-    .wheel-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 30px 0;
-      perspective: 1000px;
-      position: relative;
-    }
-    
-    #wheel {
-      width: 400px;
-      height: 400px;
-      border-radius: 50%;
-      position: relative;
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
-      border: 8px solid #8B4513;
-    }
-    
-    .pointer {
-      position: absolute;
-      top: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-top: 25px solid #FFD700;
-      z-index: 10;
-      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.5));
-    }
-    
-    .wheel-center {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle at 30% 30%, #FFD700, #DAA520);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 20;
-      border: 3px solid #8B4513;
-      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
-    }
-    
-    button {
-      background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
-      color: white;
-      border: none;
-      padding: 15px 40px;
-      font-size: 18px;
-      border-radius: 10px;
-      cursor: pointer;
-      margin: 10px;
-      transition: 0.3s;
-      font-weight: bold;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-    
-    button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-    
-    button:active {
-      transform: scale(0.95);
-    }
-    
-    button:disabled {
-      background: #999;
-      cursor: not-allowed;
-      transform: scale(1);
-    }
-    
-    #result {
-      margin-top: 30px;
-      font-size: 26px;
-      font-weight: bold;
-      min-height: 60px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      border: 2px solid #FFD700;
-    }
-    
-    .messages-section {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-    }
-    
-    .message-input {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    
-    #msg {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      color: #333;
-    }
-    
-    .send-btn {
-      background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
-    }
-    
-    .send-btn:hover {
-      background: linear-gradient(135deg, #40c057 0%, #37b24d 100%);
-    }
-    
-    #messages {
-      max-height: 300px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column-reverse;
-    }
-    
-    #messages div {
-      background: rgba(255, 255, 255, 0.2);
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
-      word-wrap: break-word;
-    }
-
-    @media (max-width: 600px) {
-      #wheel {
-        width: 300px;
-        height: 300px;
-      }
-      
-      .container {
-        padding: 20px;
-      }
-      
-      h1 {
-        font-size: 1.8em;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Western-Themed Spinning Wheel</title>
+    <style>
+        body {
+            background-color: #f7f2e7;
+            font-family: 'Garamond', serif;
+            text-align: center;
+        }
+        .wheel {
+            width: 300px;
+            height: 300px;
+            border: 10px solid #8B4513;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+        }
+        .slot {
+            height: 50px;
+            line-height: 50px;
+            background-color: #deb887;
+            border: 1px solid #5a3e28;
+            position: absolute;
+            text-align: center;
+            width: 100%;
+        }
+        .slot:nth-child(1) { transform: rotate(0deg); }
+        .slot:nth-child(2) { transform: rotate(72deg); }
+        .slot:nth-child(3) { transform: rotate(144deg); }
+        .slot:nth-child(4) { transform: rotate(216deg); }
+        .slot:nth-child(5) { transform: rotate(288deg); }
+        .rotate {
+            animation: spin 5s ease-in-out forwards;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎉 Anniversaire Solenne 🎉</h1>
-    
-    <div class="wheel-section">
-      <h2>Tourne la roue du Far West !</h2>
-      <div class="wheel-container">
-        <div class="pointer"></div>
-        <svg id="wheel" width="400" height="400" viewBox="0 0 400 400">
-          <!-- Les segments vont être générés par JavaScript -->
-        </svg>
-        <div class="wheel-center"></div>
-      </div>
-      <button id="spinBtn" onclick="spinWheel()">SPIN! 🎡</button>
-      <div id="result"></div>
+    <h1>Western Spinning Wheel</h1>
+    <div class="wheel spin">
+        <div class="slot">Tirer dans le noir</div>
+        <div class="slot">Duel a Midi</div>
+        <div class="slot">Braquage de Train</div>
+        <div class="slot">Or de la Ruee</div>
+        <div class="slot">Rodeo Sauvage</div>
     </div>
-    
-    <div class="messages-section">
-      <h2>Messages</h2>
-      <div class="message-input">
-        <input type="text" id="msg" placeholder="Écris un message...">
-        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
-      </div>
-      <div id="messages"></div>
-    </div>
-  </div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyCbv7swd0ttL9ZgGjuWFy3PcJ1yrsJoy-Y",
-      authDomain: "annivsolenne.firebaseapp.com",
-      projectId: "annivsolenne",
-      storageBucket: "annivsolenne.firebasestorage.app",
-      messagingSenderId: "911639806164",
-      appId: "1:911639806164:web:306c561b7619c795783b41",
-      measurementId: "G-0FTQVZLD9F"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const lots = [
-      "🍺 Paye une bière à Solenne",
-      "🎁 Offre un cadeau à Solenne",
-      "❌ Tu gagnes 10 cashs chez Sherif !",
-      "🍷 Offre un verre de vin à Solenne"
-    ];
-
-    const colors = ["#FF6B6B", "#4ECDC4", "#FFE66D", "#95E1D3", "#F38181", "#AA96DA"];
-
-    // Initialiser la roue
-    function initWheel() {
-      const svg = document.getElementById("wheel");
-      const segmentCount = lots.length;
-      const anglePerSegment = 360 / segmentCount;
-
-      svg.innerHTML = "";
-
-      lots.forEach((lot, index) => {
-        const startAngle = index * anglePerSegment;
-        const endAngle = startAngle + anglePerSegment;
-        
-        const startRad = (startAngle - 90) * Math.PI / 180;
-        const endRad = (endAngle - 90) * Math.PI / 180;
-        
-        const x1 = 200 + 200 * Math.cos(startRad);
-        const y1 = 200 + 200 * Math.sin(startRad);
-        const x2 = 200 + 200 * Math.cos(endRad);
-        const y2 = 200 + 200 * Math.sin(endRad);
-        
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        const largeArc = anglePerSegment > 180 ? 1 : 0;
-        const d = `M 200 200 L ${x1} ${y1} A 200 200 0 ${largeArc} 1 ${x2} ${y2} Z`;
-        
-        path.setAttribute("d", d);
-        path.setAttribute("fill", colors[index % colors.length]);
-        path.setAttribute("stroke", "#8B4513");
-        path.setAttribute("stroke-width", "3");
-        
-        svg.appendChild(path);
-        
-        // Ajouter le texte
-        const midAngle = startAngle + anglePerSegment / 2;
-        const midRad = (midAngle - 90) * Math.PI / 180;
-        const textX = 200 + 130 * Math.cos(midRad);
-        const textY = 200 + 130 * Math.sin(midRad);
-        
-        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("x", textX);
-        text.setAttribute("y", textY);
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("dominant-baseline", "middle");
-        text.setAttribute("fill", "white");
-        text.setAttribute("font-weight", "bold");
-        text.setAttribute("font-size", "12");
-        text.textContent = lot;
-        
-        // Rotation du texte pour qu'il soit lisible
-        text.setAttribute("transform", `rotate(${midAngle + 90} ${textX} ${textY})`);
-        
-        svg.appendChild(text);
-      });
-    }
-
-    let isSpinning = false;
-
-    window.spinWheel = function() {
-      if (isSpinning) return;
-
-      isSpinning = true;
-      document.getElementById("spinBtn").disabled = true;
-      document.getElementById("result").innerText = "";
-
-      const wheel = document.getElementById("wheel");
-      const spins = Math.floor(Math.random() * 5) + 5; // 5-10 tours
-      const randomDegree = Math.floor(Math.random() * 360);
-      const totalDegrees = spins * 360 + randomDegree;
-
-      wheel.style.transition = "transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-      wheel.style.transform = `rotate(${totalDegrees}deg)`;
-
-      setTimeout(() => {
-        // Déterminer le gagnant
-        const segmentCount = lots.length;
-        const anglePerSegment = 360 / segmentCount;
-        const normalizedDegree = (360 - (randomDegree % 360)) % 360;
-        const winningIndex = Math.floor(normalizedDegree / anglePerSegment) % segmentCount;
-        
-        const result = lots[winningIndex];
-        document.getElementById("result").innerText = "🎊 " + result + " 🎊";
-
-        isSpinning = false;
-        document.getElementById("spinBtn").disabled = false;
-      }, 4000);
-    }
-
-    window.sendMessage = async function() {
-      const text = document.getElementById("msg").value;
-      if (!text) return;
-
-      await addDoc(collection(db, "messages"), {
-        text: text,
-        date: new Date()
-      });
-
-      document.getElementById("msg").value = "";
-    }
-
-    function loadMessages() {
-      const q = query(collection(db, "messages"), orderBy("date", "desc"));
-
-      onSnapshot(q, snapshot => {
-        const container = document.getElementById("messages");
-        container.innerHTML = "";
-
-        snapshot.forEach(doc => {
-          const div = document.createElement("div");
-          div.innerText = doc.data().text;
-          container.prepend(div);
-        });
-      });
-    }
-
-    initWheel();
-    loadMessages();
-  </script>
+    <script>
+        window.onload = function() {
+            const wheel = document.querySelector('.wheel');
+            wheel.classList.add('rotate');
+        };
+    </script>
 </body>
 </html>
