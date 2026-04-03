@@ -21,24 +21,29 @@
       overflow-x: hidden;
     }
 
-    #background-pattern {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 1; /* Derrière tout le monde */
-      overflow: hidden;
-    }
-
-    .bg-sticker {
-      position: absolute;
-      width: 200px;
-      height: auto;
-      opacity: 0.9;
-      filter: grayscale(10%); /* Un peu moins de gris pour voir les couleurs */
-    }
+   #background-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  /* On superpose tes 7 images avec des positions différentes pour créer le motif */
+  background-image: 
+    url('1.png'), url('2.png'), url('3.png'), 
+    url('4.png'), url('5.png'), url('6.png'), url('7.png');
+  
+  /* Positions fixes (en % de la zone de répétition) */
+  background-position: 
+    10% 10%, 40% 25%, 75% 15%, 
+    20% 60%, 55% 80%, 85% 50%, 45% 45%;
+  
+  /* Taille des stickers (ajuste le 70px selon tes envies) */
+  background-size: 150px auto;
+  background-repeat: repeat;
+  opacity: 0.9;
+}
 
     .container {
       background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(45, 49, 66, 0.95) 100%);
@@ -125,27 +130,7 @@
     const lots = ["Paye un shot à Solenne", " Solenne t'offres un goal ", "", "Paye un verre de vin à solenne ", " Solenne te fait un bisou ", " 6-7"];
     const denimShades = ["#1a3a52", "#2d4e6b", "#1e2e4a", "#3d5a7a", "#2a4569", "#1f3a5c"];
 
-    function createBackgroundPattern() {
-      const container = document.getElementById('background-pattern');
-      const numberOfImages = 25;
-      const imageNames = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png'];
 
-      for (let i = 0; i < numberOfImages; i++) {
-        const img = document.createElement('img');
-        const randomImgName = imageNames[Math.floor(Math.random() * imageNames.length)];
-        img.src = randomImgName; 
-        img.className = 'bg-sticker';
-
-        const top = Math.random() * 100;
-        const left = Math.random() * 100;
-        const rotation = Math.floor(Math.random() * 181) -60;
-
-        img.style.top = `${top}%`;
-        img.style.left = `${left}%`;
-        img.style.transform = `rotate(${rotation}deg)`;
-        container.appendChild(img);
-      }
-    }
 
     function initWheel() {
       const svg = document.getElementById("wheel");
@@ -216,7 +201,6 @@
       });
     }
 
-    createBackgroundPattern();
     initWheel();
     loadMessages();
   </script>
