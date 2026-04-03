@@ -1,53 +1,181 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anniversaire Solenne 🎉</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    
+    .container {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      width: 90%;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .wheel-section {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    button {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+      transition: 0.3s;
+    }
+    
+    button:hover {
+      background: #ff5252;
+      transform: scale(1.05);
+    }
+    
+    #result {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      min-height: 40px;
+    }
+    
+    .messages-section {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+    }
+    
+    .message-input {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    #msg {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    
+    .send-btn {
+      background: #51cf66;
+    }
+    
+    .send-btn:hover {
+      background: #40c057;
+    }
+    
+    #messages {
+      max-height: 300px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    
+    #messages div {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎉 Anniversaire Solenne 🎉</h1>
+    
+    <div class="wheel-section">
+      <h2>Tourne la roue !</h2>
+      <button onclick="spin()">SPIN! 🎡</button>
+      <div id="result"></div>
+    </div>
+    
+    <div class="messages-section">
+      <h2>Messages</h2>
+      <div class="message-input">
+        <input type="text" id="msg" placeholder="Écris un message...">
+        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
+      </div>
+      <div id="messages"></div>
+    </div>
+  </div>
 
-  // 👉 COLLE TA CONFIG ICI
-  const firebaseConfig = {
-    apiKey: "AIzaSyCbv7swd0ttL9ZgGjuWFy3PcJ1yrsJoy-Y",
-    authDomain: "annivsolenne.firebaseapp.com",
-    projectId: "annivsolenne"
-  };
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbv7swd0ttL9ZgGjuWFy3PcJ1yrsJoy-Y",
+      authDomain: "annivsolenne.firebaseapp.com",
+      projectId: "annivsolenne"
+    };
 
-  // 🎡 roue (inchangée)
-  const lots = ["🍺 Paye une bière à Solenne", "🎁 Offre un cadeau à Solenne", "❌ Tu gagnes 10 cashs chez Sherif !", "🍷 Offre un verre de vin à solenne"];
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  window.spin = function() {
-    const result = lots[Math.floor(Math.random() * lots.length)];
-    document.getElementById("result").innerText = result;
-  }
+    const lots = ["🍺 Paye une bière à Solenne", "🎁 Offre un cadeau à Solenne", "❌ Tu gagnes 10 cashs chez Sherif !", "🍷 Offre un verre de vin à solenne"];
 
-  // 🧱 ENVOYER message (Firebase)
-  window.sendMessage = async function() {
-    const text = document.getElementById("msg").value;
-    if (!text) return;
+    window.spin = function() {
+      const result = lots[Math.floor(Math.random() * lots.length)];
+      document.getElementById("result").innerText = result;
+    }
 
-    await addDoc(collection(db, "messages"), {
-      text: text,
-      date: new Date()
-    });
+    window.sendMessage = async function() {
+      const text = document.getElementById("msg").value;
+      if (!text) return;
 
-    document.getElementById("msg").value = "";
-  }
-
-  // 🧱 AFFICHER messages en live
-  function loadMessages() {
-    const q = query(collection(db, "messages"), orderBy("date", "desc"));
-
-    onSnapshot(q, snapshot => {
-      const container = document.getElementById("messages");
-      container.innerHTML = "";
-
-      snapshot.forEach(doc => {
-        const div = document.createElement("div");
-        div.innerText = doc.data().text;
-        container.prepend(div);
+      await addDoc(collection(db, "messages"), {
+        text: text,
+        date: new Date()
       });
-    });
-  }
 
-  loadMessages();
-</script>
+      document.getElementById("msg").value = "";
+    }
+
+    function loadMessages() {
+      const q = query(collection(db, "messages"), orderBy("date", "desc"));
+
+      onSnapshot(q, snapshot => {
+        const container = document.getElementById("messages");
+        container.innerHTML = "";
+
+        snapshot.forEach(doc => {
+          const div = document.createElement("div");
+          div.innerText = doc.data().text;
+          container.prepend(div);
+        });
+      });
+    }
+
+    loadMessages();
+  </script>
+</body>
+</html>
