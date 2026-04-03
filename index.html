@@ -19,19 +19,22 @@
       justify-content: center;
       align-items: center;
       color: white;
+      padding: 20px;
     }
     
     .container {
       background: rgba(0, 0, 0, 0.3);
       padding: 40px;
       border-radius: 20px;
-      max-width: 600px;
-      width: 90%;
+      max-width: 700px;
+      width: 100%;
     }
     
     h1 {
       text-align: center;
       margin-bottom: 30px;
+      font-size: 2.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
     
     .wheel-section {
@@ -39,28 +42,112 @@
       margin-bottom: 40px;
     }
     
+    .wheel-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+      perspective: 1000px;
+    }
+    
+    #wheel {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      position: relative;
+      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+      border: 8px solid #8B4513;
+    }
+    
+    .wheel-segment {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+    }
+    
+    .segment-content {
+      position: absolute;
+      width: 50%;
+      height: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      color: white;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      transform-origin: 50% 100%;
+      padding: 15px;
+    }
+    
+    .pointer {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 25px solid #FFD700;
+      z-index: 10;
+      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.5));
+    }
+    
+    .wheel-center {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at 30% 30%, #FFD700, #DAA520);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      border: 3px solid #8B4513;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+    }
+    
     button {
-      background: #ff6b6b;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ff5252 100%);
       color: white;
       border: none;
-      padding: 15px 30px;
+      padding: 15px 40px;
       font-size: 18px;
       border-radius: 10px;
       cursor: pointer;
       margin: 10px;
       transition: 0.3s;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
     
     button:hover {
-      background: #ff5252;
-      transform: scale(1.05);
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    button:active {
+      transform: scale(0.95);
+    }
+    
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+      transform: scale(1);
     }
     
     #result {
-      margin-top: 20px;
-      font-size: 24px;
+      margin-top: 30px;
+      font-size: 26px;
       font-weight: bold;
-      min-height: 40px;
+      min-height: 60px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      border: 2px solid #FFD700;
     }
     
     .messages-section {
@@ -85,11 +172,11 @@
     }
     
     .send-btn {
-      background: #51cf66;
+      background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
     }
     
     .send-btn:hover {
-      background: #40c057;
+      background: linear-gradient(135deg, #40c057 0%, #37b24d 100%);
     }
     
     #messages {
@@ -106,6 +193,17 @@
       border-radius: 5px;
       word-wrap: break-word;
     }
+
+    @media (max-width: 600px) {
+      #wheel {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .segment-content {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -113,8 +211,15 @@
     <h1>🎉 Anniversaire Solenne 🎉</h1>
     
     <div class="wheel-section">
-      <h2>Tourne la roue !</h2>
-      <button onclick="spin()">SPIN! 🎡</button>
+      <h2>Tourne la roue du Far West !</h2>
+      <div class="wheel-container">
+        <div class="pointer"></div>
+        <svg id="wheel" width="400" height="400" viewBox="0 0 400 400">
+          <!-- Les segments vont être générés par JavaScript -->
+        </svg>
+        <div class="wheel-center"></div>
+      </div>
+      <button id="spinBtn" onclick="spinWheel()">SPIN! 🎡</button>
       <div id="result"></div>
     </div>
     
@@ -145,11 +250,100 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const lots = ["🍺 Paye une bière à Solenne", "🎁 Offre un cadeau à Solenne", "❌ Tu gagnes 10 cashs chez Sherif !", "🍷 Offre un verre de vin à solenne"];
+    const lots = [
+      "🍺 Paye une bière à Solenne",
+      "🎁 Offre un cadeau à Solenne",
+      "❌ Tu gagnes 10 cashs chez Sherif !",
+      "🍷 Offre un verre de vin à Solenne"
+    ];
 
-    window.spin = function() {
-      const result = lots[Math.floor(Math.random() * lots.length)];
-      document.getElementById("result").innerText = result;
+    const colors = ["#FF6B6B", "#4ECDC4", "#FFE66D", "#95E1D3", "#F38181", "#AA96DA"];
+
+    // Initialiser la roue
+    function initWheel() {
+      const svg = document.getElementById("wheel");
+      const segmentCount = lots.length;
+      const anglePerSegment = 360 / segmentCount;
+
+      svg.innerHTML = "";
+
+      lots.forEach((lot, index) => {
+        const startAngle = index * anglePerSegment;
+        const endAngle = startAngle + anglePerSegment;
+        
+        const startRad = (startAngle - 90) * Math.PI / 180;
+        const endRad = (endAngle - 90) * Math.PI / 180;
+        
+        const x1 = 200 + 200 * Math.cos(startRad);
+        const y1 = 200 + 200 * Math.sin(startRad);
+        const x2 = 200 + 200 * Math.cos(endRad);
+        const y2 = 200 + 200 * Math.sin(endRad);
+        
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        const largeArc = anglePerSegment > 180 ? 1 : 0;
+        const d = `M 200 200 L ${x1} ${y1} A 200 200 0 ${largeArc} 1 ${x2} ${y2} Z`;
+        
+        path.setAttribute("d", d);
+        path.setAttribute("fill", colors[index % colors.length]);
+        path.setAttribute("stroke", "#8B4513");
+        path.setAttribute("stroke-width", "3");
+        
+        svg.appendChild(path);
+        
+        // Ajouter le texte
+        const midAngle = startAngle + anglePerSegment / 2;
+        const midRad = (midAngle - 90) * Math.PI / 180;
+        const textX = 200 + 130 * Math.cos(midRad);
+        const textY = 200 + 130 * Math.sin(midRad);
+        
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", textX);
+        text.setAttribute("y", textY);
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("dominant-baseline", "middle");
+        text.setAttribute("fill", "white");
+        text.setAttribute("font-weight", "bold");
+        text.setAttribute("font-size", "12");
+        text.setAttribute("text-shadow", "1px 1px 2px rgba(0,0,0,0.7)");
+        text.textContent = lot;
+        
+        // Rotation du texte pour qu'il soit lisible
+        text.setAttribute("transform", `rotate(${midAngle + 90} ${textX} ${textY})`);
+        
+        svg.appendChild(text);
+      });
+    }
+
+    let isSpinning = false;
+
+    window.spinWheel = function() {
+      if (isSpinning) return;
+
+      isSpinning = true;
+      document.getElementById("spinBtn").disabled = true;
+      document.getElementById("result").innerText = "";
+
+      const wheel = document.getElementById("wheel");
+      const spins = Math.floor(Math.random() * 5) + 5; // 5-10 tours
+      const randomDegree = Math.floor(Math.random() * 360);
+      const totalDegrees = spins * 360 + randomDegree;
+
+      wheel.style.transition = "transform 4s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
+      wheel.style.transform = `rotate(${totalDegrees}deg)`;
+
+      setTimeout(() => {
+        // Déterminer le gagnant
+        const segmentCount = lots.length;
+        const anglePerSegment = 360 / segmentCount;
+        const normalizedDegree = (360 - (randomDegree % 360)) % 360;
+        const winningIndex = Math.floor(normalizedDegree / anglePerSegment) % segmentCount;
+        
+        const result = lots[winningIndex];
+        document.getElementById("result").innerText = "🎊 " + result + " 🎊";
+
+        isSpinning = false;
+        document.getElementById("spinBtn").disabled = false;
+      }, 4000);
     }
 
     window.sendMessage = async function() {
@@ -179,6 +373,7 @@
       });
     }
 
+    initWheel();
     loadMessages();
   </script>
 </body>
