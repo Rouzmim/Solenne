@@ -3,58 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Western-Themed Spinning Wheel</title>
-    <style>
-        body {
-            background-color: #f7f2e7;
-            font-family: 'Garamond', serif;
-            text-align: center;
-        }
-        .wheel {
-            width: 300px;
-            height: 300px;
-            border: 10px solid #8B4513;
-            border-radius: 50%;
-            position: relative;
-            overflow: hidden;
-        }
-        .slot {
-            height: 50px;
-            line-height: 50px;
-            background-color: #deb887;
-            border: 1px solid #5a3e28;
-            position: absolute;
-            text-align: center;
-            width: 100%;
-        }
-        .slot:nth-child(1) { transform: rotate(0deg); }
-        .slot:nth-child(2) { transform: rotate(72deg); }
-        .slot:nth-child(3) { transform: rotate(144deg); }
-        .slot:nth-child(4) { transform: rotate(216deg); }
-        .slot:nth-child(5) { transform: rotate(288deg); }
-        .rotate {
-            animation: spin 5s ease-in-out forwards;
-        }
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-    </style>
+    <title>Birthday Celebration Wheel</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Western Spinning Wheel</h1>
-    <div class="wheel spin">
-        <div class="slot">Tirer dans le noir</div>
-        <div class="slot">Duel a Midi</div>
-        <div class="slot">Braquage de Train</div>
-        <div class="slot">Or de la Ruee</div>
-        <div class="slot">Rodeo Sauvage</div>
+    <div class="wheel-container">
+        <div class="wheel">
+            <div class="segment">Gift 1</div>
+            <div class="segment">Gift 2</div>
+            <div class="segment">Gift 3</div>
+            <div class="segment">Gift 4</div>
+        </div>
+        <button id="spin">Spin the Wheel!</button>
     </div>
-    <script>
-        window.onload = function() {
-            const wheel = document.querySelector('.wheel');
-            wheel.classList.add('rotate');
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
