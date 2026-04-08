@@ -280,19 +280,8 @@ function initWheel() {
   const svg = document.getElementById("wheel");
   const anglePerSegment = 360 / lots.length;
   
-  // On vide le SVG pour éviter les doublons
+  // On vide le SVG
   svg.innerHTML = "";
-
-  // --- 1. DÉFINITION DE LA TEXTURE (Effet de lumière 3D) ---
-  const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-  defs.innerHTML = `
-    <radialGradient id="wheelTexture" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="white" stop-opacity="0.4" />
-      <stop offset="60%" stop-color="white" stop-opacity="0" />
-      <stop offset="100%" stop-color="black" stop-opacity="0.2" />
-    </radialGradient>
-  `;
-  svg.appendChild(defs);
 
   lots.forEach((lot, index) => {
     const startAngle = index * anglePerSegment;
@@ -305,45 +294,35 @@ function initWheel() {
     const x2 = 200 + 200 * Math.cos(endRad);
     const y2 = 200 + 200 * Math.sin(endRad);
     
-    // --- 2. ALTERNANCE À 3 COULEURS ---
+    // --- ALTERNANCE DE COULEURS ÉPURÉE ---
     let segmentColor;
-    if (index % 3 === 0) {
-      segmentColor = "#FF8DA1"; // Ton Rose spécifique
-    } else if (index % 3 === 1) {
-      segmentColor = "#ADD8E6"; // Bleu clair
+    const cycle = index % 3;
+    if (cycle === 0) {
+      segmentColor = "#FF8DA1"; // Ton Rose
+    } else if (cycle === 1) {
+      segmentColor = "#B9D9EB"; // Un bleu ciel plus doux
     } else {
-      segmentColor = "#FFDAB9"; // Orange pâle (PeachPuff)
+      segmentColor = "#FFD1A4"; // Un orange pâle plus chaud (pêche)
     }
     
-    const group = document.createElementNS("http://www.w3.org/2000/svg", "g");
-
-    // Fond de couleur
+    // Dessin du segment (Aplat de couleur net)
     const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
     path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
     path.setAttribute("fill", segmentColor);
-    path.setAttribute("stroke", "white");
-    path.setAttribute("stroke-width", "1");
-    group.appendChild(path);
+    path.setAttribute("stroke", "#FFFFFF"); // Bordure blanche fine pour séparer les parts
+    path.setAttribute("stroke-width", "2");
+    svg.appendChild(path);
 
-    // Texture (calque de lumière)
-    const textureOverlay = path.cloneNode();
-    textureOverlay.setAttribute("fill", "url(#wheelTexture)");
-    textureOverlay.setAttribute("stroke", "none");
-    textureOverlay.style.pointerEvents = "none"; 
-    group.appendChild(textureOverlay);
-
-    svg.appendChild(group);
-
-    // --- 3. TEXTE ORIENTÉ ---
+    // --- TEXTE ---
     const midAngle = startAngle + anglePerSegment / 2;
     const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
     
-    text.setAttribute("x", 310); 
+    text.setAttribute("x", 315); // Un peu plus vers le bord pour aérer le centre
     text.setAttribute("y", 200);
-    text.setAttribute("fill", "#1a1a2e"); 
+    text.setAttribute("fill", "#1a1a2e"); // Texte foncé pour le contraste
     text.setAttribute("text-anchor", "middle");
     text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute("font-size", "14px");
+    text.setAttribute("font-size", "15px");
     text.setAttribute("font-weight", "900");
     text.setAttribute("transform", `rotate(${midAngle - 90} 200 200)`);
     
