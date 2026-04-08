@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anniversaire Solenne 🎉</title>
- <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -20,6 +18,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      /* --- FOND AVEC VOTRE IMAGE denim.jpg --- */
       background-image: url('denim.jpg');
       background-size: 50% auto;
       background-repeat: repeat;
@@ -78,21 +77,36 @@
       z-index: 5; 
     }
 
-    /* Style de la roue inspiré de l'image */
+    /* --- NOUVEAU : Fond étoile derrière la roue --- */
+    #star-background {
+      position: absolute;
+      width: 550px; /* Plus grand que la roue pour dépasser */
+      height: 550px;
+      background-image: url('star.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      z-index: 4; /* Derrière la roue (z-index 5) */
+      opacity: 0.8; /* Légère transparence pour le style */
+    }
+
+    /* --- MODIFIÉ : Roue sans bordure --- */
     #wheel { 
       width: 420px; 
       height: 420px; 
       border-radius: 50%; 
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); 
-      border: 15px solid #333; 
-      background-color: #333;
+      border: none; /* Supprime la bordure extérieure */
+      background-color: transparent; /* Fond transparent pour voir star.png */
+      position: relative;
+      z-index: 5;
     }
 
     #wheel text {
       font-family: 'Outfit', sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px; /* Légèrement ajusté */
     }
 
     .pointer { 
@@ -123,22 +137,28 @@
       color: #1a1a2e; border: none; padding: 16px 45px; 
       font-size: 19px; cursor: pointer; font-weight: 700; 
       text-transform: uppercase;
+      position: relative;
+      z-index: 10;
     }
 
     #result { 
       margin-top: 35px; font-size: 28px; font-weight: 700; 
       min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
       color: #ffd89b; font-family: 'Playfair Display', serif; 
+      position: relative;
+      z-index: 10;
     }
 
-    .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; }
+    .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; position: relative; z-index: 10; }
     .message-input { display: flex; gap: 12px; margin-bottom: 25px; }
-    #msg { flex: 1; padding: 14px 18px; border: 2px solid #d4a574; }
+    #msg { flex: 1; padding: 14px 18px; border: 2px solid #d4a574; background-color: rgba(255,255,255,0.1); color: white; }
+    #msg::placeholder { color: rgba(255,255,255,0.5); }
     #messages { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column-reverse; }
     #messages div { background: rgba(212, 165, 116, 0.15); padding: 14px 16px; margin-bottom: 12px; border-left: 3px solid #d4a574; }
 
     @media (max-width: 600px) {
       #wheel { width: 320px; height: 320px; }
+      #star-background { width: 400px; height: 400px; }
       h1 { font-size: 2em; }
     }
   </style>
@@ -153,6 +173,7 @@
     <div class="wheel-section">
       <div class="wheel-container">
         <div class="pointer"></div>
+        <div id="star-background"></div>
         <svg id="wheel" width="400" height="400" viewBox="0 0 400 400"></svg>
         <div class="wheel-center"></div>
       </div>
@@ -220,8 +241,9 @@
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
         path.setAttribute("fill", lot.bg);
-        path.setAttribute("stroke", "#333");
-        path.setAttribute("stroke-width", "1");
+        // --- MODIFIÉ : Supprime la bordure interne ---
+        // path.setAttribute("stroke", "#333"); 
+        // path.setAttribute("stroke-width", "1");
         svg.appendChild(path);
 
         // Ajout du texte orienté
@@ -233,7 +255,7 @@
         text.setAttribute("y", 65); // Position verticale dans la tranche
         text.setAttribute("fill", lot.color);
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("font-size", "18px");
+        text.setAttribute("font-size", "16px"); // Légèrement réduit pour compenser l'absence de bordures
         
         // Rotation du texte pour qu'il soit perpendiculaire au rayon
         text.setAttribute("transform", `rotate(${midAngle} 200 200)`);
@@ -272,6 +294,7 @@
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
       const container = document.getElementById("messages");
+      if (!container) return; // Sécurité
       container.innerHTML = "";
       snap.forEach(doc => {
         const div = document.createElement("div");
@@ -283,24 +306,32 @@
     // Stickers de fond
     function createGrid() {
       const container = document.getElementById('background-pattern');
+      if (!container) return; // Sécurité
       const spacing = 200;
       const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
+      // Vérification basique de l'existence des images (évite les erreurs console si fichiers manquants)
       for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
           if (Math.random() < 0.3) continue;
           const img = document.createElement('img');
+          // Note: Il serait préférable de vérifier si les images existent vraiment
           img.src = images[Math.floor(Math.random() * images.length)];
           img.className = 'bg-sticker';
           img.style.left = (col * spacing) + "px";
           img.style.top = (row * spacing) + "px";
           img.style.transform = `rotate(${Math.floor(Math.random() * 91) - 45}deg)`;
+          // Gestion basique de l'erreur de chargement d'image
+          img.onerror = function() { this.style.display = 'none'; };
           container.appendChild(img);
         }
       }
     }
 
-    initWheel();
-    createGrid();
+    // Initialisation
+    window.onload = function() {
+      initWheel();
+      createGrid();
+    };
   </script>
 </body>
 </html>
