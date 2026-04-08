@@ -142,24 +142,51 @@
     }
 
 button { 
+  /* --- 1. L'IMAGE : PROPORTIONS ET POSITION --- */
   background-image: url('bouton.png');
-  background-size: 100% 100%; /* Force l'image à remplir tout le bouton */
+  background-size: contain;      /* FORCE L'IMAGE À GARDER SES PROPORTIONS */
   background-repeat: no-repeat;
-  background-position: center;
-  background-color: transparent; /* Supprime le fond gris par défaut */
-  color: #1a1a2e; 
-  border: none; 
-  /* Ajuste le padding pour que le texte tombe bien au milieu de ton image */
-  padding: 20px 50px; 
-  font-size: 19px; 
-  cursor: pointer; 
-  font-weight: 700; 
+  background-position: center;   /* Centre l'image dans le bouton */
+  background-color: transparent; /* Supprime le fond par défaut */
+  
+  /* --- 2. LE TEXTE : COULEUR ET STYLE --- */
+  color: white;       /* Texte blanc */
+  font-weight: bold;  /* Texte en gras */
   text-transform: uppercase;
+  font-size: 19px; 
+  font-family: 'Climate Crisis', sans-serif; /* Ta belle typo */
+  
+  /* --- 3. LES DIMENSIONS DU BOUTON (À AJUSTER) --- */
+  border: none; 
+  cursor: pointer; 
+  
+  /* Ajuste ce PADDING pour positionner le texte par rapport au dessin de ton bouton.
+     Si ton texte est trop haut, augmente le premier chiffre.
+     Si ton image est trop petite, augmente le padding. */
+  padding: 25px 60px; 
+  
+  /* Ces deux lignes peuvent aider si l'image ne s'adapte pas bien au padding */
+  /* min-width: 300px; */ /* Force une largeur minimale */
+  /* min-height: 100px; */ /* Force une hauteur minimale */
+
+  /* --- 4. POSITIONNEMENT ET COMPORTEMENT --- */
   position: relative;
   z-index: 10;
+  margin-top: 40px; /* Espace au-dessus du bouton */
   
-  /* Optionnel : retire le texte si ton image contient déjà le texte */
-  /* color: transparent; */ 
+  /* --- 5. FINITIONS --- */
+  outline: none; /* Supprime le contour bleu au clic */
+  
+  /* Effet au survol (optionnel mais sympa) */
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.05); /* Grossit légèrement au survol */
+}
+
+button:active {
+  transform: scale(0.95); /* Se réduit légèrement au clic */
 }
 
     #result { 
