@@ -239,37 +239,50 @@ button {
       { text: "COY", bg: "#E9B383", color: "#333" }
     ];
 
-    function initWheel() {
-      const svg = document.getElementById("wheel");
-      const anglePerSegment = 360 / lots.length;
-      
-      lots.forEach((lot, index) => {
-        const startAngle = index * anglePerSegment;
-        const endAngle = startAngle + anglePerSegment;
-        const startRad = (startAngle - 90) * Math.PI / 180;
-        const endRad = (endAngle - 90) * Math.PI / 180;
-        const x1 = 200 + 200 * Math.cos(startRad);
-        const y1 = 200 + 200 * Math.sin(startRad);
-        const x2 = 200 + 200 * Math.cos(endRad);
-        const y2 = 200 + 200 * Math.sin(endRad);
-        
-        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-        path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
-        path.setAttribute("fill", lot.bg);
-        svg.appendChild(path);
+function initWheel() {
+  const svg = document.getElementById("wheel");
+  const anglePerSegment = 360 / lots.length;
+  
+  lots.forEach((lot, index) => {
+    const startAngle = index * anglePerSegment;
+    const endAngle = startAngle + anglePerSegment;
+    const startRad = (startAngle - 90) * Math.PI / 180;
+    const endRad = (endAngle - 90) * Math.PI / 180;
+    const x1 = 200 + 200 * Math.cos(startRad);
+    const y1 = 200 + 200 * Math.sin(startRad);
+    const x2 = 200 + 200 * Math.cos(endRad);
+    const y2 = 200 + 200 * Math.sin(endRad);
+    
+    // Alternance des couleurs : Rose clair et Bleu clair
+    const segmentColor = (index % 2 === 0) ? "#FFB6C1" : "#ADD8E6"; 
+    
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
+    path.setAttribute("fill", segmentColor);
+    path.setAttribute("stroke", "#ffffff"); // Un petit liseré blanc pour la propreté
+    path.setAttribute("stroke-width", "1");
+    svg.appendChild(path);
 
-        const midAngle = startAngle + anglePerSegment / 2;
-        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("x", 200);
-        text.setAttribute("y", 65);
-        text.setAttribute("fill", lot.color);
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("font-size", "16px");
-        text.setAttribute("transform", `rotate(${midAngle} 200 200)`);
-        text.textContent = lot.text;
-        svg.appendChild(text);
-      });
-    }
+    const midAngle = startAngle + anglePerSegment / 2;
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    
+    // Positionnement du texte le long du rayon
+    text.setAttribute("x", 320); // Ajuste ce chiffre pour rapprocher/éloigner du centre
+    text.setAttribute("y", 200);
+    text.setAttribute("fill", "#1a1a2e"); // Couleur foncée pour être lisible sur pastel
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle"); // Centre verticalement
+    text.setAttribute("font-size", "14px");
+    text.setAttribute("font-weight", "bold");
+    
+    // La rotation magique : on tourne le groupe texte vers le centre
+    // Le second "90" oriente le texte vers le milieu
+    text.setAttribute("transform", `rotate(${midAngle - 90} 200 200) rotate(0 320 200)`);
+    
+    text.textContent = lot.text;
+    svg.appendChild(text);
+  });
+}
 
     let isSpinning = false;
     window.spinWheel = function() {
