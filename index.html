@@ -113,27 +113,22 @@
       letter-spacing: -0.5px;
     }
 
-    /* --- SUPPRIMÉ : L'ancien triangle --- */
-    .pointer { 
-      display: none; /* Masque l'ancien triangle */
-    }
-
     /* --- NOUVEAU : Le curseur revolver gun.png --- */
     #gun-pointer {
   position: absolute;
-  width: 120px; 
-  height: 120px; /* Ajout d'une hauteur explicite */
-  background-image: url('gun.png'); /* Vérifie bien l'orthographe ici */
+  width: 150px; 
+  height: 150px;
+  background-image: url('gun.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  top: -90px; /* Remonté un peu pour ne pas cacher les textes */
+  top: -110px; /* Ajusté pour qu'il ne cache pas trop la roue */
   left: 50%;
-  transform: translateX(-50%); /* Retrait du rotate(180deg) pour tester le sens par défaut */
-  z-index: 100; /* Mis au premier plan maximum */
+  transform: translateX(-50%);
+  z-index: 100;
   pointer-events: none;
-  background-color: rgba(255,0,0,0.3); */ /* Décommente cette ligne pour tester si le bloc existe */
-    }
+  background-color: rgba(255, 0, 0, 0.3); /* Carré rouge de test */
+}
 
     .wheel-center { 
       position: absolute; 
@@ -183,7 +178,6 @@
     <h1>Canadian Tuxedo is IN</h1>
     <div class="wheel-section">
       <div class="wheel-container">
-        <div class="pointer"></div>
         <div id="star-background"></div>
         <svg id="wheel" width="400" height="400" viewBox="0 0 400 400"></svg>
         <div class="wheel-center"></div>
