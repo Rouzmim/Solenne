@@ -142,52 +142,40 @@
     }
 
 button { 
-  /* --- 1. L'IMAGE : PROPORTIONS ET POSITION --- */
+  /* --- 1. L'IMAGE : RECOUVREMENT PARFAIT --- */
   background-image: url('bouton.png');
-  background-size: contain;      /* FORCE L'IMAGE À GARDER SES PROPORTIONS */
+  background-size: cover;        /* AGGRANDIT L'IMAGE POUR REMPLIR, SANS DÉFORMER */
   background-repeat: no-repeat;
-  background-position: center;   /* Centre l'image dans le bouton */
-  background-color: transparent; /* Supprime le fond par défaut */
+  background-position: center;   /* Centre l'image */
+  background-color: transparent; /* Fond transparent */
   
-  /* --- 2. LE TEXTE : COULEUR ET STYLE --- */
-  color: white;       /* Texte blanc */
-  font-weight: bold;  /* Texte en gras */
-  text-transform: uppercase;
+  /* --- 2. LE TEXTE : BLANC ET GRAS --- */
+  color: white;                  
+  font-weight: 900;              /* Très gras */
+  font-family: 'Outfit', sans-serif;
   font-size: 19px; 
-  font-family: 'Climate Crisis', sans-serif; /* Ta belle typo */
+  text-transform: uppercase;
   
   /* --- 3. LES DIMENSIONS DU BOUTON (À AJUSTER) --- */
   border: none; 
   cursor: pointer; 
   
-  /* Ajuste ce PADDING pour positionner le texte par rapport au dessin de ton bouton.
-     Si ton texte est trop haut, augmente le premier chiffre.
-     Si ton image est trop petite, augmente le padding. */
-  padding: 25px 60px; 
+  /* Le PADDING définit maintenant la taille visible de ton bouton.
+     Ajuste ces valeurs pour agrandir ou rétrécir ton bouton. 
+     (Haut/Bas  Gauche/Droite) */
+  padding: 30px 70px;            
   
-  /* Ces deux lignes peuvent aider si l'image ne s'adapte pas bien au padding */
-  /* min-width: 300px; */ /* Force une largeur minimale */
-  /* min-height: 100px; */ /* Force une hauteur minimale */
-
-  /* --- 4. POSITIONNEMENT ET COMPORTEMENT --- */
+  /* --- 4. POSITIONNEMENT ET EFFETS --- */
   position: relative;
   z-index: 10;
-  margin-top: 40px; /* Espace au-dessus du bouton */
-  
-  /* --- 5. FINITIONS --- */
-  outline: none; /* Supprime le contour bleu au clic */
-  
-  /* Effet au survol (optionnel mais sympa) */
+  outline: none;
   transition: transform 0.1s ease;
+  
+  /* Ajoute un léger arrondi si ton image a des coins arrondis */
+  /* border-radius: 10px; */ 
 }
 
-button:hover {
-  transform: scale(1.05); /* Grossit légèrement au survol */
-}
-
-button:active {
-  transform: scale(0.95); /* Se réduit légèrement au clic */
-}
+button:active { transform: scale(0.95); }
 
     #result { 
       margin-top: 35px; font-size: 28px; font-weight: 700; 
