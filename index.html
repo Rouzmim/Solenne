@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anniversaire Solenne 🎉</title>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
@@ -18,35 +18,28 @@
       display: flex;
       justify-content: center;
       align-items: center;
-
-      /* --- NOUVEAU FOND AVEC VOTRE IMAGE denim.png --- */
       background-image: url('denim.jpg');
-      background-size: 50% auto;      /* Pour que l'image couvre tout l'écran */
+      background-size: 50% auto;
       background-repeat: repeat;
-      background-attachment: fixed; /* Pour que l'image reste fixe même si on scrolle */
-      
-      /* En cas d'erreur de chargement de l'image, on garde une couleur de secours */
+      background-attachment: fixed;
       background-color: #1a1a2e;
     }
 
-#background-pattern {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
+    #background-pattern {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
 
-.bg-sticker {
-  position: absolute; /* Indispensable pour le placement via JS */
-  width: 150px;        /* Taille des photos */
-  height: auto;
-  opacity: 0.9;      /* Transparence */
-  z-index: 1;
-}
+    .bg-sticker {
+      position: absolute;
+      width: 150px;
+      height: auto;
+      opacity: 0.9;
+      z-index: 1;
+    }
 
     .container {
       background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(45, 49, 66, 0.95) 100%);
@@ -59,64 +52,116 @@
       z-index: 10;
     }
 
-    /* Le reste de ton CSS est parfait, je le condense pour la clarté */
-   h1 {
-  text-align: center;
-  margin-bottom: 15px;
-  font-size: 3.2em;
-  font-family: 'Playfair Display', serif;
-  font-weight: 900;
-  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 165, 116, 0.4);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #ffd89b;
-  /* L'animation "pulse" a été supprimée ici */
-}
+    h1 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 3.2em;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffd89b;
+    }
+
     .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; letter-spacing: 1px; }
-    h2 { margin-bottom: 25px; font-size: 1.8em; font-family: 'Playfair Display', serif; color: #ffd89b; text-transform: uppercase; }
+
     .wheel-section { text-align: center; margin-bottom: 50px; }
-    .wheel-container { display: flex; justify-content: center; align-items: center; margin: 40px 0; position: relative; z-index: 5; }
-    #wheel { width: 420px; height: 420px; border-radius: 50%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); border: 12px solid #2d3142; }
-    .pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 18px solid transparent; border-right: 18px solid transparent; border-top: 30px solid #d4a574; z-index: 20; }
-    .wheel-center { position: absolute; width: 50px; height: 50px; background: radial-gradient(circle at 35% 35%, #d4a574, #8b7355); border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 25; border: 4px solid #2d3142; }
-    button { background: linear-gradient(135deg, #d4a574 0%, #8b7355 100%); color: #1a1a2e; border: none; padding: 16px 45px; font-size: 19px; cursor: pointer; font-weight: 700; text-transform: uppercase; font-family: 'Outfit', sans-serif; }
-    #result { margin-top: 35px; font-size: 28px; font-weight: 700; min-height: 70px; padding: 25px; border: 2px solid #d4a574; color: #ffd89b; font-family: 'Playfair Display', serif; }
+    .wheel-container { 
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      margin: 40px 0; 
+      position: relative; 
+      z-index: 5; 
+    }
+
+    /* Style de la roue inspiré de l'image */
+    #wheel { 
+      width: 420px; 
+      height: 420px; 
+      border-radius: 50%; 
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); 
+      border: 15px solid #333; 
+      background-color: #333;
+    }
+
+    #wheel text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .pointer { 
+      position: absolute; 
+      top: -20px; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 0; height: 0; 
+      border-left: 18px solid transparent; 
+      border-right: 18px solid transparent; 
+      border-top: 30px solid #f1c40f; 
+      z-index: 20; 
+    }
+
+    .wheel-center { 
+      position: absolute; 
+      width: 40px; 
+      height: 40px; 
+      background: #333; 
+      border-radius: 50%; 
+      top: 50%; left: 50%; 
+      transform: translate(-50%, -50%); 
+      z-index: 25; 
+    }
+
+    button { 
+      background: linear-gradient(135deg, #d4a574 0%, #8b7355 100%); 
+      color: #1a1a2e; border: none; padding: 16px 45px; 
+      font-size: 19px; cursor: pointer; font-weight: 700; 
+      text-transform: uppercase;
+    }
+
+    #result { 
+      margin-top: 35px; font-size: 28px; font-weight: 700; 
+      min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
+      color: #ffd89b; font-family: 'Playfair Display', serif; 
+    }
+
     .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; }
     .message-input { display: flex; gap: 12px; margin-bottom: 25px; }
     #msg { flex: 1; padding: 14px 18px; border: 2px solid #d4a574; }
     #messages { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column-reverse; }
     #messages div { background: rgba(212, 165, 116, 0.15); padding: 14px 16px; margin-bottom: 12px; border-left: 3px solid #d4a574; }
-    .denim-texture { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; opacity: 0.3; background-image: repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(212, 165, 116, 0.03) 2px, rgba(212, 165, 116, 0.03) 4px); }
 
     @media (max-width: 600px) {
-      #wheel { width: 300px; height: 300px; }
-      h1 { font-size: 2.2em; }
+      #wheel { width: 320px; height: 320px; }
+      h1 { font-size: 2em; }
     }
   </style>
 </head>
 <body>
   <div id="background-pattern"></div>
-  <div class="denim-texture"></div>
   
   <div class="container">
-    <h1> Canadian Tuxedo in IN</h1>
-    <div class="subtitle"> Solenne a 30 ans</div>
+    <h1>Canadian Tuxedo in IN</h1>
+    <div class="subtitle">Solenne a 30 ans</div>
     
     <div class="wheel-section">
-      <h2>🎡 Tourne la Roue du Destin de Sheriff 🎡</h2>
       <div class="wheel-container">
         <div class="pointer"></div>
-        <svg id="wheel" width="420" height="420" viewBox="0 0 400 400"></svg>
+        <svg id="wheel" width="400" height="400" viewBox="0 0 400 400"></svg>
         <div class="wheel-center"></div>
       </div>
-      <button id="spinBtn" onclick="spinWheel()"> Découvre ton cadeau </button>
+      <button id="spinBtn" onclick="spinWheel()">Tourner la roue</button>
       <div id="result"></div>
     </div>
     
     <div class="messages-section">
       <h2>💌 Mur des mots doux 💌</h2>
       <div class="message-input">
-        <input type="text" id="msg" placeholder="Laisse un message à Solenne pour qu'elle n'oublie jamais cet anniversaire">
+        <input type="text" id="msg" placeholder="Laisse un message à Solenne...">
         <button class="send-btn" onclick="sendMessage()">Envoyer</button>
       </div>
       <div id="messages"></div>
@@ -124,7 +169,6 @@
   </div>
 
   <script type="module">
-    
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
@@ -141,74 +185,57 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    const lots = ["Paye un shot à Solenne", " Solenne t'offres un goal ", "Cul sec", "Paye un verre de vin à solenne ", " Solenne te fait un bisou ", " 6-7"];
-    const denimShades = ["#1a3a52", "#2d4e6b", "#1e2e4a", "#3d5a7a", "#2a4569", "#1f3a5c"];
-
-function createFixedGrid() {
-  const container = document.getElementById('background-pattern');
-  const spacing = 200; 
-  let images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
-  
-  images.sort(() => Math.random() - 0.5); 
-
-  for (let row = 0; row < 10; row++) {
-    for (let col = 0; col < 10; col++) {
-      
-      // --- LOGIQUE DE CASE VIDE ---
-      // Math.random() < 0.2 signifie qu'il y a 20% de chance que la case soit vide.
-      // Tu peux changer 0.2 par 0.1 (moins de vides) ou 0.3 (plus de vides).
-      if (Math.random() < 0.3) {
-        continue; // On passe à la case suivante sans rien créer
-      }
-      // ----------------------------
-
-      const img = document.createElement('img');
-      const imgIndex = (row % 3) * 3 + (col % 3);
-      img.src = images[imgIndex];
-      img.className = 'bg-sticker';
-
-      img.style.left = (col * spacing) + "px";
-      img.style.top = (row * spacing) + "px";
-
-      const randomRotation = Math.floor(Math.random() * 91) - 45; 
-      img.style.transform = `rotate(${randomRotation}deg)`;
-
-      container.appendChild(img);
-    }
-  }
-}
-
-createFixedGrid();
+    // Lots et couleurs fidèles à l'image
+    const lots = [
+      { text: "IT'S YOU'RE", bg: "#634133", color: "white" },
+      { text: "TRY AGAIN", bg: "#D1E5E9", color: "#333" },
+      { text: "FRIENDS", bg: "#B5A642", color: "#113BA6" },
+      { text: "I'M BORED", bg: "#3E1F47", color: "#E9B383" },
+      { text: "IT'S NOT YOU", bg: "#E9D2E1", color: "#458C45" },
+      { text: "I'M COOL", bg: "#C62E3E", color: "#F1C40F" },
+      { text: "GIVE UP", bg: "#A7D3A6", color: "#3E1F47" },
+      { text: "LOVERS", bg: "#A8A8A8", color: "#E67E22" },
+      { text: "UR GREAT", bg: "#113BA6", color: "white" },
+      { text: "COY", bg: "#E9B383", color: "#333" }
+    ];
 
     function initWheel() {
       const svg = document.getElementById("wheel");
       const anglePerSegment = 360 / lots.length;
+      
       lots.forEach((lot, index) => {
         const startAngle = index * anglePerSegment;
         const endAngle = startAngle + anglePerSegment;
+        
+        // Dessin du quartier
         const startRad = (startAngle - 90) * Math.PI / 180;
         const endRad = (endAngle - 90) * Math.PI / 180;
         const x1 = 200 + 200 * Math.cos(startRad);
         const y1 = 200 + 200 * Math.sin(startRad);
         const x2 = 200 + 200 * Math.cos(endRad);
         const y2 = 200 + 200 * Math.sin(endRad);
+        
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
-        path.setAttribute("fill", denimShades[index % denimShades.length]);
-        path.setAttribute("stroke", "#d4a574");
+        path.setAttribute("fill", lot.bg);
+        path.setAttribute("stroke", "#333");
+        path.setAttribute("stroke-width", "1");
         svg.appendChild(path);
 
+        // Ajout du texte orienté
         const midAngle = startAngle + anglePerSegment / 2;
-        const midRad = (midAngle - 90) * Math.PI / 180;
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        const tx = 200 + 130 * Math.cos(midRad);
-        const ty = 200 + 130 * Math.sin(midRad);
-        text.setAttribute("x", tx);
-        text.setAttribute("y", ty);
-        text.setAttribute("fill", "#ffd89b");
+        
+        // On place le texte à une distance fixe du centre, centré dans sa tranche
+        text.setAttribute("x", 200);
+        text.setAttribute("y", 65); // Position verticale dans la tranche
+        text.setAttribute("fill", lot.color);
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("transform", `rotate(${midAngle + 90} ${tx} ${ty})`);
-        text.textContent = lot;
+        text.setAttribute("font-size", "18px");
+        
+        // Rotation du texte pour qu'il soit perpendiculaire au rayon
+        text.setAttribute("transform", `rotate(${midAngle} 200 200)`);
+        text.textContent = lot.text;
         svg.appendChild(text);
       });
     }
@@ -220,16 +247,20 @@ createFixedGrid();
       const wheel = document.getElementById("wheel");
       const randomDegree = Math.floor(Math.random() * 360);
       const totalDegrees = (10 * 360) + randomDegree;
+      
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
+      
       setTimeout(() => {
+        // Calcul du gain (le pointeur est en haut à 0°)
         const normalized = (360 - (randomDegree % 360)) % 360;
-        const winIdx = Math.floor(normalized / (360/lots.length)) % lots.length;
-        document.getElementById("result").innerText = "🎊 " + lots[winIdx] + " 🎊";
+        const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
+        document.getElementById("result").innerText = "✨ " + lots[winIdx].text + " ✨";
         isSpinning = false;
       }, 5000);
     };
 
+    // Gestion Firebase
     window.sendMessage = async function() {
       const text = document.getElementById("msg").value;
       if (!text.trim()) return;
@@ -237,20 +268,37 @@ createFixedGrid();
       document.getElementById("msg").value = "";
     };
 
-    function loadMessages() {
-      onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
-        const container = document.getElementById("messages");
-        container.innerHTML = "";
-        snap.forEach(doc => {
-          const div = document.createElement("div");
-          div.innerText = doc.data().text;
-          container.appendChild(div);
-        });
+    onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
+      const container = document.getElementById("messages");
+      container.innerHTML = "";
+      snap.forEach(doc => {
+        const div = document.createElement("div");
+        div.innerText = doc.data().text;
+        container.appendChild(div);
       });
+    });
+
+    // Stickers de fond
+    function createGrid() {
+      const container = document.getElementById('background-pattern');
+      const spacing = 200;
+      const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
+      for (let row = 0; row < 10; row++) {
+        for (let col = 0; col < 10; col++) {
+          if (Math.random() < 0.3) continue;
+          const img = document.createElement('img');
+          img.src = images[Math.floor(Math.random() * images.length)];
+          img.className = 'bg-sticker';
+          img.style.left = (col * spacing) + "px";
+          img.style.top = (row * spacing) + "px";
+          img.style.transform = `rotate(${Math.floor(Math.random() * 91) - 45}deg)`;
+          container.appendChild(img);
+        }
+      }
     }
 
     initWheel();
-    loadMessages();
+    createGrid();
   </script>
 </body>
 </html>
