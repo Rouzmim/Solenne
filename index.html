@@ -120,17 +120,19 @@
 
     /* --- NOUVEAU : Le curseur revolver gun.png --- */
     #gun-pointer {
-      position: absolute;
-      width: 120px; /* Ajuste la taille selon tes goûts */
-      height: auto;
-      background-image: url('gun.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      /* Positionnement pour pointer vers 12h (le haut de la roue) */
-      top: -60px; /* Décale vers le haut pour que le canon soit sur la roue */
-      left: 50%;
-      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); /* Ajoute une ombre pour le relief */
+  position: absolute;
+  width: 120px; 
+  height: 120px; /* Ajout d'une hauteur explicite */
+  background-image: url('gun.png'); /* Vérifie bien l'orthographe ici */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: -90px; /* Remonté un peu pour ne pas cacher les textes */
+  left: 50%;
+  transform: translateX(-50%); /* Retrait du rotate(180deg) pour tester le sens par défaut */
+  z-index: 100; /* Mis au premier plan maximum */
+  pointer-events: none;
+  /* background-color: rgba(255,0,0,0.3); */ /* Décommente cette ligne pour tester si le bloc existe */
     }
 
     .wheel-center { 
