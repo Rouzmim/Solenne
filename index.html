@@ -20,7 +20,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      /* --- FOND AVEC VOTRE IMAGE denim.jpg --- */
       background-image: url('denim.jpg');
       background-size: 50% auto;
       background-repeat: repeat;
@@ -56,67 +55,53 @@
       z-index: 10;
     }
     h1 {
-      font-family: 'Climate Crisis', sans-serif; /* La nouvelle typo */
-      font-size: 5em;                          /* Taille énorme */
-      color: white;                             /* Blanc pur */
+      font-family: 'Climate Crisis', sans-serif;
+      font-size: 5em;
+      color: white;
       text-align: center;
       text-transform: uppercase;
-      line-height: 0.85;                        /* Pour que les lignes soient bien serrées */
+      line-height: 0.85;
       margin-bottom: 10px;
-      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4); /* Ombre pour faire ressortir le blanc */
-      letter-spacing: 2px;                     /* Pour l'aspect compact et stylé */
+      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+      letter-spacing: 2px;
     }
 
     .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; letter-spacing: 1px; }
 
-    .wheel-section { text-align: center; margin-bottom: 50px; }
+    /* --- MODIFIÉ : margin-top augmenté pour descendre la roue --- */
+    .wheel-section { text-align: center; margin-top: 80px; margin-bottom: 50px; }
+    
     .wheel-container { 
       display: flex; 
       justify-content: center; 
       align-items: center; 
-      margin: 60px 0; 
+      margin: 100px 0; 
       position: relative; 
       z-index: 5; 
     }
 
     /* --- NOUVEAU : Fond étoile derrière la roue --- */
-  #star-background {
-    position: absolute;
-  
-  /* On garde la même taille */
-    width: 1000px; 
-    height: 1000px;
-  
-  /* On garde la même image */
-    background-image: url('star.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-  
-  /* On le place au centre par défaut */
-    top: 50%;
-    left: 50%;
-  
-  /* LA MAGIE EST ICI :
-     On utilise 'translate' pour ajuster la position.
-     -50% -50% pour le centrage parfait.
-     Puis on ajoute un décalage manuel.
-  */
-    transform: translate(-50%, -50%) translate(-50px, 70px);
-  /* translate(vers la gauche, vers le bas)
-     -20px = décale de 20 pixels vers la gauche
-     30px = décale de 30 pixels vers le bas
-     Ajuste ces valeurs selon tes goûts !
-  */
-}
-    /* --- MODIFIÉ : Roue sans bordure --- */
+    #star-background {
+      position: absolute;
+      width: 1000px; 
+      height: 1000px;
+      background-image: url('star.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translate(-50px, 70px);
+      z-index: 4;
+    } /* <-- Accolade rajoutée pour corriger l'erreur */
+
     #wheel { 
       width: 420px; 
       height: 420px; 
       border-radius: 50%; 
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); 
-      border: none; /* Supprime la bordure extérieure */
-      background-color: transparent; /* Fond transparent pour voir star.png */
+      border: none;
+      background-color: transparent;
       position: relative;
       z-index: 5;
     }
@@ -125,7 +110,7 @@
       font-family: 'Outfit', sans-serif;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -0.5px; /* Légèrement ajusté */
+      letter-spacing: -0.5px;
     }
 
     .pointer { 
@@ -171,7 +156,6 @@
     .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; position: relative; z-index: 10; }
     .message-input { display: flex; gap: 12px; margin-bottom: 25px; }
     #msg { flex: 1; padding: 14px 18px; border: 2px solid #d4a574; background-color: rgba(255,255,255,0.1); color: white; }
-    #msg::placeholder { color: rgba(255,255,255,0.5); }
     #messages { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column-reverse; }
     #messages div { background: rgba(212, 165, 116, 0.15); padding: 14px 16px; margin-bottom: 12px; border-left: 3px solid #d4a574; }
 
@@ -225,7 +209,6 @@
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Lots et couleurs fidèles à l'image
     const lots = [
       { text: "IT'S YOU'RE", bg: "#634133", color: "white" },
       { text: "TRY AGAIN", bg: "#D1E5E9", color: "#333" },
@@ -246,8 +229,6 @@
       lots.forEach((lot, index) => {
         const startAngle = index * anglePerSegment;
         const endAngle = startAngle + anglePerSegment;
-        
-        // Dessin du quartier
         const startRad = (startAngle - 90) * Math.PI / 180;
         const endRad = (endAngle - 90) * Math.PI / 180;
         const x1 = 200 + 200 * Math.cos(startRad);
@@ -258,23 +239,15 @@
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
         path.setAttribute("fill", lot.bg);
-        // --- MODIFIÉ : Supprime la bordure interne ---
-        // path.setAttribute("stroke", "#333"); 
-        // path.setAttribute("stroke-width", "1");
         svg.appendChild(path);
 
-        // Ajout du texte orienté
         const midAngle = startAngle + anglePerSegment / 2;
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        
-        // On place le texte à une distance fixe du centre, centré dans sa tranche
         text.setAttribute("x", 200);
-        text.setAttribute("y", 65); // Position verticale dans la tranche
+        text.setAttribute("y", 65);
         text.setAttribute("fill", lot.color);
         text.setAttribute("text-anchor", "middle");
-        text.setAttribute("font-size", "16px"); // Légèrement réduit pour compenser l'absence de bordures
-        
-        // Rotation du texte pour qu'il soit perpendiculaire au rayon
+        text.setAttribute("font-size", "16px");
         text.setAttribute("transform", `rotate(${midAngle} 200 200)`);
         text.textContent = lot.text;
         svg.appendChild(text);
@@ -288,12 +261,9 @@
       const wheel = document.getElementById("wheel");
       const randomDegree = Math.floor(Math.random() * 360);
       const totalDegrees = (10 * 360) + randomDegree;
-      
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
-      
       setTimeout(() => {
-        // Calcul du gain (le pointeur est en haut à 0°)
         const normalized = (360 - (randomDegree % 360)) % 360;
         const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
         document.getElementById("result").innerText = "✨ " + lots[winIdx].text + " ✨";
@@ -301,7 +271,6 @@
       }, 5000);
     };
 
-    // Gestion Firebase
     window.sendMessage = async function() {
       const text = document.getElementById("msg").value;
       if (!text.trim()) return;
@@ -311,7 +280,7 @@
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
       const container = document.getElementById("messages");
-      if (!container) return; // Sécurité
+      if (!container) return;
       container.innerHTML = "";
       snap.forEach(doc => {
         const div = document.createElement("div");
@@ -320,31 +289,25 @@
       });
     });
 
-    // Stickers de fond
     function createGrid() {
       const container = document.getElementById('background-pattern');
-      if (!container) return; // Sécurité
       const spacing = 200;
       const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
-      // Vérification basique de l'existence des images (évite les erreurs console si fichiers manquants)
       for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 10; col++) {
           if (Math.random() < 0.3) continue;
           const img = document.createElement('img');
-          // Note: Il serait préférable de vérifier si les images existent vraiment
           img.src = images[Math.floor(Math.random() * images.length)];
           img.className = 'bg-sticker';
           img.style.left = (col * spacing) + "px";
           img.style.top = (row * spacing) + "px";
           img.style.transform = `rotate(${Math.floor(Math.random() * 91) - 45}deg)`;
-          // Gestion basique de l'erreur de chargement d'image
           img.onerror = function() { this.style.display = 'none'; };
           container.appendChild(img);
         }
       }
     }
 
-    // Initialisation
     window.onload = function() {
       initWheel();
       createGrid();
