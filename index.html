@@ -79,17 +79,34 @@
     }
 
     /* --- NOUVEAU : Fond étoile derrière la roue --- */
-    #star-background {
-      position: absolute;
-      width: 1000px; /* Plus grand que la roue pour dépasser */
-      height: 1000px;
-      background-image: url('star.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-      z-index: 4; /* Derrière la roue (z-index 5) */
-      opacity: 1; /* Légère transparence pour le style */
-    }
+  #star-background {
+    position: absolute;
+  
+  /* On garde la même taille */
+    width: 550px; 
+    height: 550px;
+  
+  /* On garde la même image */
+    background-image: url('star.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  
+  /* On le place au centre par défaut */
+    top: 50%;
+    left: 50%;
+  
+  /* LA MAGIE EST ICI :
+     On utilise 'translate' pour ajuster la position.
+     -50% -50% pour le centrage parfait.
+     Puis on ajoute un décalage manuel.
+  */
+    transform: translate(-50%, -50%) translate(-20px, 30px);
+  /* translate(vers la gauche, vers le bas)
+     -20px = décale de 20 pixels vers la gauche
+     30px = décale de 30 pixels vers le bas
+     Ajuste ces valeurs selon tes goûts !
+  */
 
     /* --- MODIFIÉ : Roue sans bordure --- */
     #wheel { 
