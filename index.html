@@ -116,8 +116,8 @@
     /* --- NOUVEAU : Le curseur revolver gun.png --- */
     #gun-pointer {
   position: absolute;
-  width: 100px; 
-  height: 100px;
+  width: 120px; 
+  height: 120px;
   background-image: url('gun.png');
   background-size: contain;
   background-repeat: no-repeat;
@@ -141,14 +141,26 @@
       z-index: 25; 
     }
 
-    button { 
-      background: linear-gradient(135deg, #d4a574 0%, #8b7355 100%); 
-      color: #1a1a2e; border: none; padding: 16px 45px; 
-      font-size: 19px; cursor: pointer; font-weight: 700; 
-      text-transform: uppercase;
-      position: relative;
-      z-index: 10;
-    }
+button { 
+  background-image: url('bouton.png');
+  background-size: 100% 100%; /* Force l'image à remplir tout le bouton */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent; /* Supprime le fond gris par défaut */
+  color: #1a1a2e; 
+  border: none; 
+  /* Ajuste le padding pour que le texte tombe bien au milieu de ton image */
+  padding: 20px 50px; 
+  font-size: 19px; 
+  cursor: pointer; 
+  font-weight: 700; 
+  text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+  
+  /* Optionnel : retire le texte si ton image contient déjà le texte */
+  /* color: transparent; */ 
+}
 
     #result { 
       margin-top: 35px; font-size: 28px; font-weight: 700; 
