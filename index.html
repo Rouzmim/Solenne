@@ -62,24 +62,64 @@
     .subtitle { font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; }
 
     /* --- BOUTON ORIGINAL --- */
-.spin-btn { 
-      background-image: url('bouton.png');
-      background-size: 100% 100%; /* S'adapte à la taille sans déformer */
-      background-repeat: no-repeat;
-      background-position: center;
-      background-color: transparent;
-      color: white; 
-      font-weight: 900; 
-      font-size: 19px; 
-      text-transform: uppercase;
-      border: none; 
-      cursor: pointer; 
-      padding: 30px 70px; 
-      position: relative;
-      z-index: 50; /* Doit être au-dessus de tout */
-      filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
-      display: inline-block;
-    }
+button { 
+  /* --- 1. L'IMAGE : FOND ET PROPORTIONS --- */
+  background-image: url('bouton.png');
+  /* background-size: contain; */ /* Tu utilises probablement 'cover' ou 'contain', garde ce qui fonctionne */
+  background-size: cover;        /* Force l'image à remplir le bouton sans déformer */
+  background-repeat: no-repeat;
+  background-position: center;   /* Centre l'image */
+  background-color: transparent; /* Supprime le fond par défaut */
+
+  /* --- 2. LE TEXTE : COULEUR, STYLE ET OMBRE --- */
+  color: white;                  /* Texte Blanc */
+  font-weight: 900;              /* Très Gras */
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px; 
+  text-transform: uppercase;
+
+  /* --- NOUVEAU : Ombre portée sur le texte pour le relief --- */
+  /* (Horizontal, Vertical, Flou, Couleur) */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+
+  /* --- 3. LES DIMENSIONS DU BOUTON (À AJUSTER) --- */
+  border: none; 
+  cursor: pointer; 
+  padding: 30px 70px;            /* Ajuste l'espace pour le texte */
+
+  /* --- 4. POSITIONNEMENT, EFFETS ET OMBRE DYNAMIQUE --- */
+  position: relative;
+  z-index: 10;
+  outline: none;
+
+  /* --- NOUVEAU : OMBRE PORTÉE DERRIÈRE L'IMAGE --- */
+  /* filter: drop-shadow est parfait pour les images avec transparence.
+     Il crée l'ombre exactement autour du dessin de ton bouton.
+     (Horizontal, Vertical, Flou, Couleur) */
+  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
+
+  /* --- NOUVEAU : FINITIONS DYNAMIQUES AU SURVOL --- */
+  /* Transition fluide pour tous les effets (taille et ombre) */
+  transition: all 0.15s ease-out; 
+}
+
+/* --- NOUVEAU : Effet au survol (souris dessus) --- */
+button:hover {
+  /* Le bouton grossit très légèrement */
+  transform: translateY(-2px) scale(1.03); 
+
+  /* L'ombre devient plus diffuse et plus basse, comme si le bouton se levait */
+  filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7));
+}
+
+/* --- NOUVEAU : Effet au clic --- */
+button:active { 
+  /* Le bouton s'écrase légèrement */
+  transform: translateY(1px) scale(0.97); 
+
+  /* L'ombre se rapproche pour simuler l'appui */
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
+}
 
     .spin-btn:active { transform: scale(0.95); }
 
@@ -89,15 +129,19 @@
       margin: 60px 0; position: relative; 
     }
 
-    #star-background {
+#star-background {
       position: absolute;
-      width: 800px; height: 800px;
+      width: 1000px; 
+      height: 1000px;
       background-image: url('star.png');
-      background-size: contain; background-repeat: no-repeat; background-position: center;
-      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translate(-50px, 70px);
       z-index: 4;
-      pointer-events: none;
-    }
+    } /* <-- Accolade rajoutée pour corriger l'erreur */
 
     #wheel { width: 420px; height: 420px; position: relative; z-index: 5; }
 
