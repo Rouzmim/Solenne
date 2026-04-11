@@ -142,19 +142,41 @@
       justify-content: center; gap: 30px; z-index: 10; padding-bottom: 50px;
     }
 
-    .wanted-wrapper {
-      background: rgba(0, 0, 0, 0.7); /* Fond contrasté */
-      padding: 20px; border-radius: 15px; border: 2px solid #d4a574;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5); flex-shrink: 0;
+.wanted-wrapper {
+      background: rgba(0, 0, 0, 0.7); 
+      padding: 20px; 
+      border-radius: 15px; 
+      /* Bordure rose ajoutée ici */
+      border: 4px solid #FF8DA1; 
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
     }
 
-    .wanted-poster { width: 160px; height: auto; display: block; }
+.wanted-wrapper:hover {
+      transform: scale(1.05) rotate(-2deg); /* Petit effet sympa au survol */
+    }
 
-    .message-container-right { flex: 1; max-width: 550px; }
+    .wanted-poster { 
+      width: 250px; /* Image plus grosse (était à 160px) */
+      height: auto; 
+      display: block; 
+    }
 
     .wall-title {
-      font-family: 'Climate Crisis', sans-serif; font-size: 2em; color: #FF8DA1;
-      text-align: center; margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,1);
+      font-family: 'Climate Crisis', sans-serif; 
+      font-size: 2.2em; 
+      color: #FFFFFF; /* Titre passé en blanc */
+      text-align: center; 
+      margin-bottom: 25px; 
+      text-shadow: 3px 3px 0px #FF8DA1; /* Ombre rose pour la lisibilité */
+      text-transform: uppercase;
+    }
+
+    /* Ajustement responsive pour la grosse image */
+    @media (max-width: 800px) {
+      .wanted-poster { width: 180px; }
+      .messages-section { gap: 15px; }
     }
 
     .message-input-box {
@@ -207,13 +229,14 @@
     </div>
   </div>
 
-  <div class="messages-section">
+<div class="messages-section">
     <div class="wanted-wrapper">
       <img src="wanted.png" alt="Wanted" class="wanted-poster">
     </div>
 
     <div class="message-container-right">
       <h2 class="wall-title">Avis de recherche</h2>
+      
       <div class="message-input-box">
         <textarea id="msg" placeholder="Laisse un message à Solenne..."></textarea>
         <button class="spin-btn send-btn-small" onclick="sendMessage()">Poster le message</button>
