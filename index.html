@@ -27,11 +27,15 @@
     }
 
     #background-pattern {
-      position: absolute; /* Change de fixed à absolute pour suivre le scroll */
-      top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden; /* Empêche les stickers de dépasser et de décaler la page */
+}
 
     .bg-sticker { position: absolute; width: 150px; opacity: 0.9; z-index: 1; }
 
@@ -431,7 +435,11 @@ button:active {
       }
     }
 
-    window.onload = () => { initWheel(); createGrid(); };
+window.onload = () => { 
+  window.scrollTo(0, 0); // Force le scroll en haut de page
+  initWheel(); 
+  createGrid(); 
+};
   </script>
 </body>
 </html>
