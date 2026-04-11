@@ -18,17 +18,16 @@
       overflow-x: hidden;
       min-height: 100vh;
       background-image: url('denim.jpg');
-      background-size: 50% auto;
+      background-size: 600px auto; /* Taille du motif jean */
       background-repeat: repeat;
       background-attachment: fixed;
-      background-color: #1a1a2e;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     #background-pattern {
-      position: fixed;
+      position: absolute; /* Change de fixed à absolute pour suivre le scroll */
       top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none;
       z-index: 1;
@@ -43,72 +42,43 @@
       max-width: 900px;
       width: 95%;
       border: 6px solid #FF8DA1;
-      border-radius: 20px;
+      border-radius: 30px; /* Coins bien arrondis */
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
       position: relative;
       z-index: 10;
-      margin-bottom: 50px;
+      margin-bottom: 60px;
+      text-align: center;
     }
 
     h1 {
       font-family: 'Climate Crisis', sans-serif;
       font-size: 3.5em;
-      text-align: center;
       text-transform: uppercase;
       line-height: 0.85;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
       text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
     }
 
-    .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; }
-
-    #registration-form {
-      text-align: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 15px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .input-group {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    input[type="text"], textarea {
-      padding: 12px 20px;
-      border-radius: 8px;
-      border: 2px solid #FF8DA1;
-      background: #1a1a2e;
-      color: white;
-      font-family: 'Outfit', sans-serif;
-    }
-
-    input[type="text"] { width: 200px; }
+    .subtitle { font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; }
 
     /* --- BOUTON ORIGINAL --- */
     .spin-btn { 
       background-image: url('bouton.png');
-      background-size: cover; 
+      background-size: 100% 100%; 
       background-repeat: no-repeat;
-      background-position: center;
       background-color: transparent;
       color: white; 
       font-weight: 900; 
-      font-family: 'Outfit', sans-serif;
       font-size: 19px; 
       text-transform: uppercase;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       border: none; 
       cursor: pointer; 
-      padding: 30px 70px; 
+      padding: 35px 80px; 
+      border-radius: 50px; /* Force l'arrondi */
       position: relative;
-      z-index: 10;
+      z-index: 20;
       filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
-      transition: all 0.15s ease-out; 
+      transition: transform 0.1s ease; 
     }
 
     .spin-btn:active { transform: scale(0.95); }
@@ -116,16 +86,17 @@
     /* --- ROUE --- */
     .wheel-container { 
       display: flex; justify-content: center; align-items: center; 
-      margin: 80px 0; position: relative; 
+      margin: 60px 0; position: relative; 
     }
 
     #star-background {
       position: absolute;
-      width: 1000px; height: 1000px;
+      width: 800px; height: 800px;
       background-image: url('star.png');
       background-size: contain; background-repeat: no-repeat; background-position: center;
-      top: 50%; left: 50%; transform: translate(-50%, -50%) translate(-50px, 70px);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
       z-index: 4;
+      pointer-events: none;
     }
 
     #wheel { width: 420px; height: 420px; position: relative; z-index: 5; }
@@ -133,29 +104,37 @@
     #gun-pointer {
       position: absolute; width: 120px; height: 120px;
       background-image: url('gun.png'); background-size: contain; background-repeat: no-repeat;
-      top: -70px; left: 50%; transform: translateX(-50%); z-index: 100;
+      top: -60px; left: 50%; transform: translateX(-50%); z-index: 100;
     }
 
     .wheel-center { 
-      position: absolute; width: 150px; height: 150px; 
+      position: absolute; width: 140px; height: 140px; 
       background-image: url('sherif.png'); background-size: contain; background-repeat: no-repeat;
       top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 25; 
     }
 
+    /* --- RESULTAT (DESCENDU ET SURÉLEVÉ) --- */
     #result { 
-      margin-top: 35px; font-size: 24px; font-weight: 700; text-align: center;
-      padding: 25px; color: #ffd89b; background: rgba(0,0,0,0.3); border-radius: 10px;
+      margin-top: 80px; /* Plus d'espace sous la roue */
+      font-size: 24px; font-weight: 900; 
+      padding: 30px; color: #ffd89b; 
+      background: rgba(0,0,0,0.5); 
+      border-radius: 20px;
+      position: relative;
+      z-index: 30; /* Passe au dessus de la star */
+      border: 2px solid #FF8DA1;
+      min-height: 80px;
     }
 
-    /* --- SECTION SAISIE MESSAGES (HORS DU CONTAINER) --- */
+    /* --- SECTION SAISIE --- */
     .input-section {
-      width: 95%; max-width: 900px; display: flex; align-items: flex-start;
-      justify-content: center; gap: 30px; z-index: 10; margin-bottom: 50px;
+      width: 95%; max-width: 900px; display: flex; align-items: center;
+      justify-content: center; gap: 40px; z-index: 10; margin-bottom: 50px;
     }
 
     .wanted-wrapper {
-      background: rgba(0, 0, 0, 0.7); padding: 20px; border-radius: 15px; 
-      border: 4px solid #FF8DA1; /* Bordure Rose */
+      background: rgba(0, 0, 0, 0.8); padding: 25px; border-radius: 20px; 
+      border: 4px solid #FF8DA1;
       box-shadow: 0 15px 40px rgba(0,0,0,0.6); flex-shrink: 0;
     }
 
@@ -164,43 +143,37 @@
     .message-container-right { flex: 1; max-width: 500px; }
 
     .wall-title {
-      font-family: 'Climate Crisis', sans-serif; font-size: 2.2em; 
-      color: #FFFFFF; /* Titre Blanc */
-      text-align: center; margin-bottom: 25px; 
-      text-shadow: 3px 3px 0px #FF8DA1; /* Ombre Rose */
-      text-transform: uppercase;
+      font-family: 'Climate Crisis', sans-serif; font-size: 2.5em; 
+      color: #FFFFFF; text-align: center; margin-bottom: 25px; 
+      text-shadow: 3px 3px 0px #FF8DA1; text-transform: uppercase;
     }
 
     .message-input-box {
-      background: rgba(26, 26, 46, 0.8); padding: 20px; border-radius: 15px;
+      background: rgba(26, 26, 46, 0.9); padding: 25px; border-radius: 25px;
       border: 2px solid #FF8DA1;
     }
 
-    #msg { width: 100%; height: 100px; background: rgba(0,0,0,0.4); margin-bottom: 10px; resize: none; color: white; border: 1px solid #d4a574; }
+    #msg { width: 100%; height: 110px; background: rgba(0,0,0,0.4); border-radius: 10px; margin-bottom: 15px; resize: none; color: white; padding: 10px; border: 1px solid #FF8DA1; }
 
-    .send-btn-small { padding: 15px 30px !important; font-size: 14px !important; width: 100%; }
-
-    /* --- LE MUR ALEATOIRE --- */
+    /* --- LE MUR --- */
     #messages-wall {
-      width: 100%; max-width: 1400px; min-height: 600px;
-      position: relative; z-index: 10; margin-bottom: 100px;
+      width: 100%; min-height: 700px; position: relative; z-index: 10; margin-bottom: 100px;
     }
 
     .posted-message {
-      position: absolute; width: 220px;
-      background: rgba(0, 0, 0, 0.8); padding: 15px; border-radius: 5px;
-      border-left: 5px solid #FF8DA1; box-shadow: 8px 8px 20px rgba(0,0,0,0.5);
-      font-size: 0.9em; transition: transform 0.3s; z-index: 10;
+      position: absolute; width: 240px;
+      background: rgba(0, 0, 0, 0.85); padding: 20px; border-radius: 10px;
+      border-left: 6px solid #FF8DA1; box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
+      font-size: 1em; z-index: 10;
     }
 
-    .posted-message:hover { transform: scale(1.1) !important; z-index: 100 !important; }
-    .msg-author { color: #d4a574; font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 5px; }
+    .msg-author { color: #d4a574; font-weight: 900; text-transform: uppercase; font-size: 0.85em; display: block; margin-bottom: 8px; }
 
     @media (max-width: 800px) {
-      .input-section { flex-direction: column; align-items: center; }
-      .wanted-poster { width: 180px; }
+      .input-section { flex-direction: column; }
+      .wanted-poster { width: 200px; }
       #messages-wall { display: flex; flex-direction: column; align-items: center; height: auto; }
-      .posted-message { position: relative !important; left: 0 !important; top: 0 !important; margin: 10px 0; transform: none !important; width: 90%; }
+      .posted-message { position: relative !important; left: 0 !important; top: 0 !important; margin: 15px 0; width: 90%; transform: none !important; }
     }
   </style>
 </head>
@@ -225,7 +198,8 @@
       <svg id="wheel" viewBox="0 0 400 400"></svg>
       <div class="wheel-center"></div>
     </div>
-    <div id="result"></div>
+    
+    <div id="result">Fais tourner la roue pour voir ton lot !</div>
   </div>
 
   <div class="input-section">
@@ -235,8 +209,8 @@
     <div class="message-container-right">
       <h2 class="wall-title">Avis de recherche</h2>
       <div class="message-input-box">
-        <textarea id="msg" placeholder="Laisse un message à Solenne..."></textarea>
-        <button class="spin-btn send-btn-small" onclick="sendMessage()">Poster le message</button>
+        <textarea id="msg" placeholder="Écris ton message ici..."></textarea>
+        <button class="spin-btn" style="padding: 20px; font-size: 14px; width: 100%; border-radius: 15px;" onclick="sendMessage()">Poster le message</button>
       </div>
     </div>
   </div>
@@ -260,56 +234,67 @@
     const db = getFirestore(app);
 
     const lots = [
-      { text: "SHOT" }, { text: "VERRE DE VIN" }, { text: "MISSION MYSTERE" },
-      { text: "UN BISOU" }, { text: "UN CASH" }, { text: "CLOPE" }
+      { text: "SHOT" }, { text: "VIN" }, { text: "DÉFI" },
+      { text: "BISOU" }, { text: "CASH" }, { text: "CLOPE" }
     ];
 
     function initWheel() {
       const svg = document.getElementById("wheel");
-      const anglePerSegment = 360 / lots.length;
+      const step = 360 / lots.length;
+      svg.innerHTML = "";
       lots.forEach((lot, i) => {
-        const startAngle = i * anglePerSegment;
-        const endAngle = startAngle + anglePerSegment;
-        const x1 = 200 + 200 * Math.cos((startAngle - 90) * Math.PI / 180);
-        const y1 = 200 + 200 * Math.sin((startAngle - 90) * Math.PI / 180);
-        const x2 = 200 + 200 * Math.cos((endAngle - 90) * Math.PI / 180);
-        const y2 = 200 + 200 * Math.sin((endAngle - 90) * Math.PI / 180);
+        const start = i * step;
+        const end = start + step;
+        const x1 = 200 + 200 * Math.cos((start - 90) * Math.PI / 180);
+        const y1 = 200 + 200 * Math.sin((start - 90) * Math.PI / 180);
+        const x2 = 200 + 200 * Math.cos((end - 90) * Math.PI / 180);
+        const y2 = 200 + 200 * Math.sin((end - 90) * Math.PI / 180);
         let color = (i % 3 === 0) ? "#FF8DA1" : (i % 3 === 1) ? "#B9D9EB" : "#FFD1A4";
-        svg.innerHTML += `<path d="M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z" fill="${color}" stroke="#FFFFFF"/>`;
-        svg.innerHTML += `<text x="315" y="200" fill="#1a1a2e" font-weight="900" font-size="14" transform="rotate(${startAngle - 60} 200 200)">${lot.text}</text>`;
+        
+        svg.innerHTML += `<path d="M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z" fill="${color}" stroke="#FFFFFF" stroke-width="2"/>`;
+        
+        const textAngle = start + step / 2;
+        svg.innerHTML += `
+          <text x="310" y="200" 
+            fill="#1a1a2e" 
+            font-weight="900" 
+            font-size="16" 
+            text-anchor="middle" 
+            dominant-baseline="central"
+            transform="rotate(${textAngle - 90} 200 200)">
+            ${lot.text}
+          </text>`;
       });
     }
 
     let isSpinning = false;
-
     window.checkAndSpin = async function() {
       if (isSpinning) return;
       const f = document.getElementById("firstName").value.trim();
       const l = document.getElementById("lastName").value.trim();
-      if (!f || !l) return alert("Nom et prénom requis !");
+      if (!f || !l) return alert("Remplis ton nom Cowboy !");
 
       const fullName = (f + " " + l).toLowerCase();
-      const q = query(collection(db, "players"), where("name", "==", fullName));
-      const snap = await getDocs(q);
+      const snap = await getDocs(query(collection(db, "players"), where("name", "==", fullName)));
 
       if (!snap.empty) {
-        document.getElementById("result").innerHTML = `🚫 Déjà joué ! Lot : <strong>${snap.docs[0].data().prize}</strong>`;
+        document.getElementById("result").innerHTML = `🚫 Déjà joué ! Lot : ${snap.docs[0].data().prize}`;
         return;
       }
 
       isSpinning = true;
-      const deg = (10 * 360) + Math.floor(Math.random() * 360);
-      document.getElementById("wheel").style.transition = "5s cubic-bezier(0.1, 0, 0.2, 1)";
+      const deg = (12 * 360) + Math.floor(Math.random() * 360);
+      document.getElementById("wheel").style.transition = "6s cubic-bezier(0.15, 0, 0.15, 1)";
       document.getElementById("wheel").style.transform = `rotate(${deg}deg)`;
 
       setTimeout(async () => {
-        const winIdx = Math.floor(((360 - (deg % 360)) % 360) / 60);
+        const actualDeg = (360 - (deg % 360)) % 360;
+        const winIdx = Math.floor(actualDeg / (360 / lots.length));
         const prize = lots[winIdx].text;
-        await addDoc(collection(db, "players"), { name: fullName, prize: prize, date: new Date() });
-        document.getElementById("result").innerHTML = `Gagné : ${prize}`;
-        document.getElementById("registration-form").style.display = "none";
+        await addDoc(collection(db, "players"), { name: fullName, prize, date: new Date() });
+        document.getElementById("result").innerHTML = `🎯 BRAVO ! TU AS GAGNÉ : ${prize}`;
         isSpinning = false;
-      }, 5000);
+      }, 6000);
     };
 
     window.sendMessage = async function() {
@@ -325,8 +310,8 @@
       const wall = document.getElementById("messages-wall");
       wall.innerHTML = "";
       const positions = [];
-      const maxWidth = Math.min(window.innerWidth - 250, 1100);
-      const maxHeight = 500;
+      const width = window.innerWidth - 300;
+      const height = 600;
 
       snap.forEach(doc => {
         const d = doc.data();
@@ -338,18 +323,18 @@
         let attempts = 0;
         do {
           collision = false;
-          x = Math.random() * maxWidth;
-          y = Math.random() * maxHeight;
+          x = Math.random() * width;
+          y = Math.random() * height;
           for (let p of positions) {
-            if (Math.abs(x - p.x) < 240 && Math.abs(y - p.y) < 130) { collision = true; break; }
+            if (Math.abs(x - p.x) < 250 && Math.abs(y - p.y) < 140) { collision = true; break; }
           }
           attempts++;
-        } while (collision && attempts < 25);
+        } while (collision && attempts < 30);
 
         positions.push({ x, y });
-        div.style.left = x + "px";
+        div.style.left = Math.max(20, x) + "px";
         div.style.top = y + "px";
-        div.style.transform = `rotate(${Math.random() * 16 - 8}deg)`;
+        div.style.transform = `rotate(${Math.random() * 14 - 7}deg)`;
         wall.appendChild(div);
       });
     });
@@ -357,12 +342,12 @@
     function createGrid() {
       const container = document.getElementById('background-pattern');
       const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const img = document.createElement('img');
         img.src = images[Math.floor(Math.random() * images.length)];
         img.className = 'bg-sticker';
         img.style.left = Math.random() * 95 + "vw";
-        img.style.top = Math.random() * 300 + "vh";
+        img.style.top = Math.random() * 400 + "vh"; // Couvre une grande hauteur
         img.style.transform = `rotate(${Math.random() * 360}deg)`;
         img.onerror = () => img.remove();
         container.appendChild(img);
@@ -373,3 +358,5 @@
   </script>
 </body>
 </html>
+    }
+
