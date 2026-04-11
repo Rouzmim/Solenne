@@ -204,11 +204,73 @@
       border-radius: 10px;
     }
 
-    .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; position: relative; z-index: 10; }
-    .message-input { display: flex; gap: 12px; margin-bottom: 25px; }
-    #msg { flex: 1; padding: 14px 18px; border: 2px solid #d4a574; background-color: rgba(255,255,255,0.1); color: white; }
-    #messages { max-height: 350px; overflow-y: auto; display: flex; flex-direction: column-reverse; }
-    #messages div { background: rgba(212, 165, 116, 0.15); padding: 14px 16px; margin-bottom: 12px; border-left: 3px solid #d4a574; }
+/* --- SECTION MESSAGES REVISITÉE --- */
+    .messages-section { 
+      padding: 30px; 
+      margin-top: 40px; 
+      position: relative; 
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex-wrap: wrap; /* Pour le mobile */
+      justify-content: center;
+    }
+
+    .wanted-poster {
+      width: 180px; /* Ajuste la taille de ton image wanted.png ici */
+      height: auto;
+      filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5));
+    }
+
+    .message-container-right {
+      flex: 1;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .message-input-box {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px dashed #d4a574;
+    }
+
+    #msg { 
+      width: 100%;
+      padding: 14px 18px; 
+      border: 2px solid #d4a574; 
+      background-color: rgba(0,0,0,0.4); 
+      color: white; 
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    #messages { 
+      max-height: 250px; 
+      overflow-y: auto; 
+      display: flex; 
+      flex-direction: column; 
+      margin-top: 15px;
+    }
+
+    #messages div { 
+      background: rgba(212, 165, 116, 0.1); 
+      padding: 10px; 
+      margin-bottom: 8px; 
+      border-bottom: 1px solid #d4a574;
+      font-size: 0.9em;
+    }
+
+    .msg-author {
+      color: #FF8DA1;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      display: block;
+    }
 
     @media (max-width: 600px) {
       #wheel { width: 320px; height: 320px; }
@@ -245,13 +307,19 @@
       <div id="result"></div>
     </div>
     
-    <div class="messages-section">
-      <h2>💌 Mur des mots doux 💌</h2>
-      <div class="message-input">
-        <input type="text" id="msg" placeholder="Laisse un message à Solenne...">
-        <button style="padding: 10px 20px; cursor: pointer;" onclick="sendMessage()">Envoyer</button>
+<div class="messages-section">
+      <img src="wanted.png" alt="Wanted" class="wanted-poster">
+
+      <div class="message-container-right">
+        <h2>💌 Mur des mots doux 💌</h2>
+        
+        <div class="message-input-box">
+          <textarea id="msg" placeholder="Laisse un message à Solenne... (Le nom utilisé pour la roue sera affiché)"></textarea>
+          <button class="spin-btn" style="padding: 15px 30px; font-size: 14px;" onclick="sendMessage()">Envoyer mon message</button>
+        </div>
+
+        <div id="messages"></div>
       </div>
-      <div id="messages"></div>
     </div>
   </div>
 
