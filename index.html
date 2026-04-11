@@ -369,19 +369,46 @@
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
 
-      setTimeout(async () => {
+setTimeout(async () => {
         const normalized = (360 - (randomDegree % 360)) % 360;
         const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
         const wonPrize = lots[winIdx].text;
 
-        // Enregistrer le résultat dans Firebase
+        // --- NOUVEAU : PERSONNALISATION DU MESSAGE ---
+        let displayMessage = "";
+        
+        switch(wonPrize) {
+          case "CLOPE":
+            displayMessage = "Tu as perdu ! Tu dois une clope à Solenne.";
+            break;
+          case "SHOT":
+            displayMessage = "Tu as perdu ! Tu dois un shot à Solenne.";
+            break;
+          case "UN BISOU":
+            displayMessage = "Tu as gagné ! Un gros bisou de Solenne !";
+            break;
+          case "MISSION MYSTERE":
+            displayMessage = "🕵️‍♂️ Mission acceptée ? Va voir Solenne pour ton défi !";
+            break;
+          case "VERRE DE VIN":
+            displayMessage = "Santé ! Tu dois un verre de vin à Solenne.";
+            break;
+          case "UN CASH":
+            displayMessage = "C'est ton jour de chance ! Va voir une Mirouze pour récupérer un cash.";
+            break;
+          default:
+            displayMessage = `✨ Félicitations ! Tu as gagné : ${wonPrize} ✨`;
+        }
+
+        // Enregistrer le résultat dans Firebase (on garde le nom du lot court pour la BDD)
         await addDoc(collection(db, "players"), {
           name: fullName,
           prize: wonPrize,
           date: new Date()
         });
 
-        document.getElementById("result").innerHTML = "✨ BRAVO ! TU AS GAGNÉ : <br><strong>" + wonPrize + "</strong> ✨";
+        // Afficher le message personnalisé
+        document.getElementById("result").innerHTML = displayMessage;
         document.getElementById("registration-form").style.display = "none";
         isSpinning = false;
       }, 5000);
