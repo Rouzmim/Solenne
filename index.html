@@ -54,9 +54,10 @@
       position: relative;
       z-index: 10;
     }
+
     h1 {
       font-family: 'Climate Crisis', sans-serif;
-      font-size: 5em;
+      font-size: 4em;
       color: white;
       text-align: center;
       text-transform: uppercase;
@@ -68,19 +69,46 @@
 
     .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; letter-spacing: 1px; }
 
-    /* --- MODIFIÉ : margin-top augmenté pour descendre la roue --- */
-    .wheel-section { text-align: center; margin-top: 80px; margin-bottom: 50px; }
+    /* --- Formulaire d'inscription --- */
+    #registration-form {
+      text-align: center;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .input-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    input[type="text"] {
+      padding: 12px 20px;
+      border-radius: 8px;
+      border: 2px solid #FF8DA1;
+      background: #1a1a2e;
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      width: 200px;
+    }
+
+    .wheel-section { text-align: center; margin-top: 40px; margin-bottom: 50px; }
     
     .wheel-container { 
       display: flex; 
       justify-content: center; 
       align-items: center; 
-      margin: 100px 0; 
+      margin: 80px 0; 
       position: relative; 
       z-index: 5; 
     }
 
-    /* --- NOUVEAU : Fond étoile derrière la roue --- */
     #star-background {
       position: absolute;
       width: 1000px; 
@@ -93,7 +121,7 @@
       left: 50%;
       transform: translate(-50%, -50%) translate(-50px, 70px);
       z-index: 4;
-    } /* <-- Accolade rajoutée pour corriger l'erreur */
+    }
 
     #wheel { 
       width: 420px; 
@@ -106,108 +134,74 @@
       z-index: 5;
     }
 
-    #wheel text {
-      font-family: 'Outfit', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: -0.5px;
+    #gun-pointer {
+      position: absolute;
+      width: 120px; 
+      height: 120px;
+      background-image: url('gun.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      top: -70px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      pointer-events: none;
     }
 
-    /* --- NOUVEAU : Le curseur revolver gun.png --- */
-    #gun-pointer {
-  position: absolute;
-  width: 120px; 
-  height: 120px;
-  background-image: url('gun.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  top: -70px; /* Ajusté pour qu'il ne cache pas trop la roue */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  pointer-events: none;
-  
-}
-
     .wheel-center { 
-  position: absolute; 
-  width: 150px;  /* Taille de l'étoile au centre */
-  height: 150px; 
-  background-image: url('sherif.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  top: 50%; 
-  left: 50%; 
-  transform: translate(-50%, -50%); 
-  z-index: 25; 
-}
+      position: absolute; 
+      width: 150px; 
+      height: 150px; 
+      background-image: url('sherif.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      top: 50%; 
+      left: 50%; 
+      transform: translate(-50%, -50%); 
+      z-index: 25; 
+    }
 
-button { 
-  /* --- 1. L'IMAGE : FOND ET PROPORTIONS --- */
-  background-image: url('bouton.png');
-  /* background-size: contain; */ /* Tu utilises probablement 'cover' ou 'contain', garde ce qui fonctionne */
-  background-size: cover;        /* Force l'image à remplir le bouton sans déformer */
-  background-repeat: no-repeat;
-  background-position: center;   /* Centre l'image */
-  background-color: transparent; /* Supprime le fond par défaut */
-  
-  /* --- 2. LE TEXTE : COULEUR, STYLE ET OMBRE --- */
-  color: white;                  /* Texte Blanc */
-  font-weight: 900;              /* Très Gras */
-  font-family: 'Outfit', sans-serif;
-  font-size: 19px; 
-  text-transform: uppercase;
-  
-  /* --- NOUVEAU : Ombre portée sur le texte pour le relief --- */
-  /* (Horizontal, Vertical, Flou, Couleur) */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  
-  /* --- 3. LES DIMENSIONS DU BOUTON (À AJUSTER) --- */
-  border: none; 
-  cursor: pointer; 
-  padding: 30px 70px;            /* Ajuste l'espace pour le texte */
-  
-  /* --- 4. POSITIONNEMENT, EFFETS ET OMBRE DYNAMIQUE --- */
-  position: relative;
-  z-index: 10;
-  outline: none;
-  
-  /* --- NOUVEAU : OMBRE PORTÉE DERRIÈRE L'IMAGE --- */
-  /* filter: drop-shadow est parfait pour les images avec transparence.
-     Il crée l'ombre exactement autour du dessin de ton bouton.
-     (Horizontal, Vertical, Flou, Couleur) */
-  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
-  
-  /* --- NOUVEAU : FINITIONS DYNAMIQUES AU SURVOL --- */
-  /* Transition fluide pour tous les effets (taille et ombre) */
-  transition: all 0.15s ease-out; 
-}
-
-/* --- NOUVEAU : Effet au survol (souris dessus) --- */
-button:hover {
-  /* Le bouton grossit très légèrement */
-  transform: translateY(-2px) scale(1.03); 
-  
-  /* L'ombre devient plus diffuse et plus basse, comme si le bouton se levait */
-  filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7));
-}
-
-/* --- NOUVEAU : Effet au clic --- */
-button:active { 
-  /* Le bouton s'écrase légèrement */
-  transform: translateY(1px) scale(0.97); 
-  
-  /* L'ombre se rapproche pour simuler l'appui */
-  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
-}
-    #result { 
-      margin-top: 35px; font-size: 28px; font-weight: 700; 
-      min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
-      color: #ffd89b; font-family: 'Playfair Display', serif; 
+    .spin-btn { 
+      background-image: url('bouton.png');
+      background-size: cover; 
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: transparent;
+      color: white; 
+      font-weight: 900; 
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px; 
+      text-transform: uppercase;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      border: none; 
+      cursor: pointer; 
+      padding: 30px 70px; 
       position: relative;
       z-index: 10;
+      filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
+      transition: all 0.15s ease-out; 
+    }
+
+    .spin-btn:hover {
+      transform: translateY(-2px) scale(1.03); 
+      filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7));
+    }
+
+    .spin-btn:active { 
+      transform: translateY(1px) scale(0.97); 
+      filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
+    }
+
+    #result { 
+      margin-top: 35px; font-size: 24px; font-weight: 700; 
+      min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
+      color: #ffd89b; font-family: 'Outfit', sans-serif; 
+      position: relative;
+      z-index: 10;
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
     }
 
     .messages-section { background: rgba(212, 165, 116, 0.08); padding: 30px; margin-top: 40px; border: 2px solid #d4a574; position: relative; z-index: 10; }
@@ -219,7 +213,9 @@ button:active {
     @media (max-width: 600px) {
       #wheel { width: 320px; height: 320px; }
       #star-background { width: 400px; height: 400px; }
-      h1 { font-size: 2em; }
+      h1 { font-size: 2.2em; }
+      .input-group { flex-direction: column; align-items: center; }
+      input[type="text"] { width: 100%; }
     }
   </style>
 </head>
@@ -228,14 +224,24 @@ button:active {
   
   <div class="container">
     <h1>Canadian Tuxedo is IN</h1>
+    <p class="subtitle">Entrez votre nom pour tenter de gagner un lot !</p>
+
     <div class="wheel-section">
+      <div id="registration-form">
+        <div class="input-group">
+          <input type="text" id="firstName" placeholder="Prénom">
+          <input type="text" id="lastName" placeholder="Nom">
+        </div>
+        <button id="spinBtn" class="spin-btn" onclick="checkAndSpin()">Tourner la roue</button>
+      </div>
+
       <div class="wheel-container">
         <div id="gun-pointer"></div>
         <div id="star-background"></div>
         <svg id="wheel" width="400" height="400" viewBox="0 0 400 400"></svg>
         <div class="wheel-center"></div>
       </div>
-      <button id="spinBtn" onclick="spinWheel()">Tourner la roue</button>
+      
       <div id="result"></div>
     </div>
     
@@ -243,7 +249,7 @@ button:active {
       <h2>💌 Mur des mots doux 💌</h2>
       <div class="message-input">
         <input type="text" id="msg" placeholder="Laisse un message à Solenne...">
-        <button class="send-btn" onclick="sendMessage()">Envoyer</button>
+        <button style="padding: 10px 20px; cursor: pointer;" onclick="sendMessage()">Envoyer</button>
       </div>
       <div id="messages"></div>
     </div>
@@ -251,7 +257,7 @@ button:active {
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCbv7swd0ttL9ZgGjuWFy3PcJ1yrsJoy-Y",
@@ -267,85 +273,119 @@ button:active {
     const db = getFirestore(app);
 
     const lots = [
-      { text: "UN SHOT", bg: "#634133", color: "white" },
-      { text: "UN VERRE DE VIN", bg: "#D1E5E9", color: "#333" },
-      { text: "MISSION MYSTERE", bg: "#B5A642", color: "#113BA6" },
-      { text: "UN BISOU", bg: "#3E1F47", color: "#E9B383" },
-      { text: "UN CASH", bg: "#E9D2E1", color: "#458C45" },
-      { text: "UNE CLOPE", bg: "#C62E3E", color: "#F1C40F" },
+      { text: "SHOT", bg: "#634133" },
+      { text: "VERRE DE VIN", bg: "#D1E5E9" },
+      { text: "MISSION MYSTERE", bg: "#B5A642" },
+      { text: "UN BISOU", bg: "#3E1F47" },
+      { text: "UN CASH", bg: "#E9D2E1" },
+      { text: "CLOPE", bg: "#C62E3E" },
     ];
 
-function initWheel() {
-  const svg = document.getElementById("wheel");
-  const anglePerSegment = 360 / lots.length;
-  
-  // On vide le SVG
-  svg.innerHTML = "";
+    function initWheel() {
+      const svg = document.getElementById("wheel");
+      const anglePerSegment = 360 / lots.length;
+      svg.innerHTML = "";
 
-  lots.forEach((lot, index) => {
-    const startAngle = index * anglePerSegment;
-    const endAngle = startAngle + anglePerSegment;
-    const startRad = (startAngle - 90) * Math.PI / 180;
-    const endRad = (endAngle - 90) * Math.PI / 180;
-    
-    const x1 = 200 + 200 * Math.cos(startRad);
-    const y1 = 200 + 200 * Math.sin(startRad);
-    const x2 = 200 + 200 * Math.cos(endRad);
-    const y2 = 200 + 200 * Math.sin(endRad);
-    
-    // --- ALTERNANCE DE COULEURS ÉPURÉE ---
-    let segmentColor;
-    const cycle = index % 3;
-    if (cycle === 0) {
-      segmentColor = "#FF8DA1"; // Ton Rose
-    } else if (cycle === 1) {
-      segmentColor = "#B9D9EB"; // Un bleu ciel plus doux
-    } else {
-      segmentColor = "#FFD1A4"; // Un orange pâle plus chaud (pêche)
+      lots.forEach((lot, index) => {
+        const startAngle = index * anglePerSegment;
+        const endAngle = startAngle + anglePerSegment;
+        const startRad = (startAngle - 90) * Math.PI / 180;
+        const endRad = (endAngle - 90) * Math.PI / 180;
+        
+        const x1 = 200 + 200 * Math.cos(startRad);
+        const y1 = 200 + 200 * Math.sin(startRad);
+        const x2 = 200 + 200 * Math.cos(endRad);
+        const y2 = 200 + 200 * Math.sin(endRad);
+        
+        let segmentColor = (index % 3 === 0) ? "#FF8DA1" : (index % 3 === 1) ? "#B9D9EB" : "#FFD1A4";
+        
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
+        path.setAttribute("fill", segmentColor);
+        path.setAttribute("stroke", "#FFFFFF");
+        path.setAttribute("stroke-width", "2");
+        svg.appendChild(path);
+
+        const midAngle = startAngle + anglePerSegment / 2;
+        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        text.setAttribute("x", 315);
+        text.setAttribute("y", 200);
+        text.setAttribute("fill", "#1a1a2e");
+        text.setAttribute("text-anchor", "middle");
+        text.setAttribute("dominant-baseline", "middle");
+        text.setAttribute("font-size", "14px");
+        text.setAttribute("font-weight", "900");
+        text.setAttribute("transform", `rotate(${midAngle - 90} 200 200)`);
+        text.textContent = lot.text;
+        svg.appendChild(text);
+      });
     }
-    
-    // Dessin du segment (Aplat de couleur net)
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
-    path.setAttribute("fill", segmentColor);
-    path.setAttribute("stroke", "#FFFFFF"); // Bordure blanche fine pour séparer les parts
-    path.setAttribute("stroke-width", "2");
-    svg.appendChild(path);
-
-    // --- TEXTE ---
-    const midAngle = startAngle + anglePerSegment / 2;
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    
-    text.setAttribute("x", 315); // Un peu plus vers le bord pour aérer le centre
-    text.setAttribute("y", 200);
-    text.setAttribute("fill", "#1a1a2e"); // Texte foncé pour le contraste
-    text.setAttribute("text-anchor", "middle");
-    text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute("font-size", "15px");
-    text.setAttribute("font-weight", "900");
-    text.setAttribute("transform", `rotate(${midAngle - 90} 200 200)`);
-    
-    text.textContent = lot.text;
-    svg.appendChild(text);
-  });
-}
 
     let isSpinning = false;
-    window.spinWheel = function() {
+
+    // --- NOUVELLE LOGIQUE DE VÉRIFICATION ---
+    window.checkAndSpin = async function() {
       if (isSpinning) return;
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+
+      if (!firstName || !lastName) {
+        alert("Cowboy ! Il me faut ton prénom et ton nom pour valider ton lot !");
+        return;
+      }
+
+      const fullName = (firstName + " " + lastName).toLowerCase();
+
+      try {
+        // Vérifier si ce nom a déjà joué
+        const q = query(collection(db, "players"), where("name", "==", fullName));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+          const userData = querySnapshot.docs[0].data();
+          document.getElementById("result").innerHTML = `🚫 Désolé ${firstName}, tu as déjà joué ! Ton lot était : <br><strong>${userData.prize}</strong>`;
+          return;
+        }
+
+        // Si nouveau joueur, on lance la roue
+        spinWheel(fullName);
+      } catch (e) {
+        console.error("Erreur Firebase:", e);
+        alert("Un problème est survenu avec la base de données.");
+      }
+    };
+
+    function spinWheel(fullName) {
       isSpinning = true;
+      const spinBtn = document.getElementById("spinBtn");
+      spinBtn.disabled = true;
+      spinBtn.style.opacity = "0.5";
+
       const wheel = document.getElementById("wheel");
       const randomDegree = Math.floor(Math.random() * 360);
       const totalDegrees = (10 * 360) + randomDegree;
+      
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
-      setTimeout(() => {
+
+      setTimeout(async () => {
         const normalized = (360 - (randomDegree % 360)) % 360;
         const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
-        document.getElementById("result").innerText = "✨ " + lots[winIdx].text + " ✨";
+        const wonPrize = lots[winIdx].text;
+
+        // Enregistrer le résultat dans Firebase
+        await addDoc(collection(db, "players"), {
+          name: fullName,
+          prize: wonPrize,
+          date: new Date()
+        });
+
+        document.getElementById("result").innerHTML = "✨ BRAVO ! TU AS GAGNÉ : <br><strong>" + wonPrize + "</strong> ✨";
+        document.getElementById("registration-form").style.display = "none";
         isSpinning = false;
       }, 5000);
-    };
+    }
 
     window.sendMessage = async function() {
       const text = document.getElementById("msg").value;
