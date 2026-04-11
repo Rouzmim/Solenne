@@ -54,24 +54,21 @@
       text-align: center;
     }
 
-    h1 {
-      font-family: 'Climate Crisis', sans-serif;
-      font-size: 3.5em;
-      text-transform: uppercase;
-      line-height: 0.85;
-      margin-bottom: 15px;
-      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
-    }
-        h2 {
-      font-family: 'Climate Crisis', sans-serif;
-      font-size: 1em;
-      text-transform: uppercase;
-      line-height: 0.85;
-      margin-bottom: 15px;
-      text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
-    }
+h1 {
+  font-family: 'Climate Crisis', sans-serif;
+  font-size: 3.5em;
+  text-transform: uppercase;
+  line-height: 0.85;
+  margin-bottom: 5px; /* Réduit de 15px à 5px */
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+}
 
-    .subtitle { font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; }
+    .subtitle { 
+  font-size: 1.1em; 
+  margin-bottom: 20px; /* Réduit de 40px à 20px */
+  color: #d4a574; 
+  font-weight: 600; 
+}
 
     /* --- BOUTON ORIGINAL --- */
 button { 
@@ -134,17 +131,20 @@ button:active {
 }
 
     /* --- AGRANDISSEMENT DES CASES NOM/PRENOM --- */
-    #registration-form {
-      padding: 30px !important;
-      border-radius: 20px;
-    }
+   #registration-form {
+  padding: 15px 30px !important; /* Réduit le padding vertical */
+  margin-bottom: 10px; /* Moins d'espace avant la roue */
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-    .input-group {
-      display: flex;
-      gap: 20px !important;
-      justify-content: center;
-      margin-bottom: 30px !important;
-    }
+.input-group {
+  display: flex;
+  gap: 15px !important;
+  justify-content: center;
+  margin-bottom: 15px !important; /* Réduit l'espace entre les inputs et le bouton */
+}
 
     input[type="text"] {
       padding: 18px 25px !important; /* Rend la case plus haute et plus large */
@@ -159,10 +159,13 @@ button:active {
     }
 
     /* --- ROUE --- */
-    .wheel-container { 
-      display: flex; justify-content: center; align-items: center; 
-      margin: 60px 0; position: relative; 
-    }
+.wheel-container { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 30px 0 !important; /* Réduit de 60px à 30px */
+  position: relative; 
+}
 
 #star-background {
       position: absolute;
@@ -192,11 +195,11 @@ button:active {
       top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 25; 
     }
 
-    /* --- RESULTAT (DESCENDU ET SURÉLEVÉ) --- */
     #result { 
-      margin-top: 80px; /* Plus d'espace sous la roue */
-      font-size: 24px; font-weight: 900; 
-      padding: 30px; color: #ffd89b; 
+      margin-top: 40px; /* Réduit de 80px à 40px */
+      font-size: 22px; 
+      font-weight: 900; 
+      padding: 20px; 
       background: rgba(0,0,0,0.5); 
       border-radius: 20px;
       position: relative;
