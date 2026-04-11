@@ -69,6 +69,7 @@
 
     .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; letter-spacing: 1px; }
 
+    /* Identification Form */
     #registration-form {
       text-align: center;
       margin-bottom: 20px;
@@ -169,8 +170,6 @@
       transition: all 0.15s ease-out; 
     }
 
-    .spin-btn:hover { transform: translateY(-2px) scale(1.03); filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7)); }
-
     #result { 
       margin-top: 35px; font-size: 24px; font-weight: 700; 
       min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
@@ -178,13 +177,13 @@
       background: rgba(0,0,0,0.3); border-radius: 10px;
     }
 
-    /* --- SECTION MESSAGES --- */
+    /* Message Section */
     .messages-section { 
       padding: 30px; margin-top: 40px; position: relative; z-index: 10;
       display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
     }
 
-    .wanted-poster { width: 180px; height: auto; filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5)); }
+    .wanted-poster { width: 300px; height: auto; filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5)); }
 
     .message-container-right { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
 
@@ -196,14 +195,11 @@
 
     #messages div { background: rgba(212, 165, 116, 0.1); padding: 10px; margin-bottom: 8px; border-bottom: 1px solid #d4a574; font-size: 0.9em; }
 
-    .msg-author { color: #FF8DA1; font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; }
+    .msg-author { color: #FF8DA1; font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 3px;}
 
     @media (max-width: 600px) {
       #wheel { width: 320px; height: 320px; }
-      #star-background { width: 400px; height: 400px; }
       h1 { font-size: 2.2em; }
-      .input-group { flex-direction: column; align-items: center; }
-      input[type="text"] { width: 100%; }
     }
   </style>
 </head>
@@ -236,10 +232,10 @@
     <div class="messages-section">
       <img src="wanted.png" alt="Wanted" class="wanted-poster">
       <div class="message-container-right">
-        <h2>💌 Mur des mots doux 💌</h2>
+        <h2> Mur des posters </h2>
         <div class="message-input-box">
-          <textarea id="msg" placeholder="Laisse un message à Solenne... (Utilise les champs nom/prénom en haut)"></textarea>
-          <button class="spin-btn" style="padding: 15px 30px; font-size: 14px;" onclick="sendMessage()">Envoyer mon message</button>
+          <textarea id="msg" placeholder="Laisse un message à Solenne... (Le nom en haut sera utilisé)"></textarea>
+          <button class="spin-btn" style="padding: 15px 30px; font-size: 14px;" onclick="sendMessage()">Envoyer</button>
         </div>
         <div id="messages"></div>
       </div>
@@ -264,47 +260,38 @@
     const db = getFirestore(app);
 
     const lots = [
-      { text: "SHOT", bg: "#634133" },
-      { text: "VERRE DE VIN", bg: "#D1E5E9" },
-      { text: "MISSION MYSTERE", bg: "#B5A642" },
-      { text: "UN BISOU", bg: "#3E1F47" },
-      { text: "UN CASH", bg: "#E9D2E1" },
-      { text: "CLOPE", bg: "#C62E3E" },
+      { text: "SHOT" },
+      { text: "VERRE DE VIN" },
+      { text: "MISSION MYSTERE" },
+      { text: "UN BISOU" },
+      { text: "UN CASH" },
+      { text: "CLOPE" }
     ];
 
     function initWheel() {
       const svg = document.getElementById("wheel");
       const anglePerSegment = 360 / lots.length;
       svg.innerHTML = "";
-
       lots.forEach((lot, index) => {
         const startAngle = index * anglePerSegment;
         const endAngle = startAngle + anglePerSegment;
         const startRad = (startAngle - 90) * Math.PI / 180;
         const endRad = (endAngle - 90) * Math.PI / 180;
-        
         const x1 = 200 + 200 * Math.cos(startRad);
         const y1 = 200 + 200 * Math.sin(startRad);
         const x2 = 200 + 200 * Math.cos(endRad);
         const y2 = 200 + 200 * Math.sin(endRad);
-        
-        let segmentColor = (index % 3 === 0) ? "#FF8DA1" : (index % 3 === 1) ? "#B9D9EB" : "#FFD1A4";
-        
+        let color = (index % 3 === 0) ? "#FF8DA1" : (index % 3 === 1) ? "#B9D9EB" : "#FFD1A4";
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", `M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z`);
-        path.setAttribute("fill", segmentColor);
+        path.setAttribute("fill", color);
         path.setAttribute("stroke", "#FFFFFF");
-        path.setAttribute("stroke-width", "2");
         svg.appendChild(path);
-
         const midAngle = startAngle + anglePerSegment / 2;
         const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-        text.setAttribute("x", 315);
-        text.setAttribute("y", 200);
-        text.setAttribute("fill", "#1a1a2e");
-        text.setAttribute("text-anchor", "middle");
-        text.setAttribute("dominant-baseline", "middle");
-        text.setAttribute("font-size", "14px");
+        text.setAttribute("x", 315); text.setAttribute("y", 200);
+        text.setAttribute("fill", "#1a1a2e"); text.setAttribute("text-anchor", "middle");
+        text.setAttribute("dominant-baseline", "middle"); text.setAttribute("font-size", "14px");
         text.setAttribute("font-weight", "900");
         text.setAttribute("transform", `rotate(${midAngle - 90} 200 200)`);
         text.textContent = lot.text;
@@ -318,128 +305,91 @@
       if (isSpinning) return;
       const firstName = document.getElementById("firstName").value.trim();
       const lastName = document.getElementById("lastName").value.trim();
-
-      if (!firstName || !lastName) {
-        alert("Cowboy ! Il me faut ton prénom et ton nom pour valider ton lot !");
-        return;
-      }
+      if (!firstName || !lastName) { alert("Nom et prénom requis !"); return; }
 
       const fullName = (firstName + " " + lastName).toLowerCase();
+      const q = query(collection(db, "players"), where("name", "==", fullName));
+      const snap = await getDocs(q);
 
-      try {
-        const q = query(collection(db, "players"), where("name", "==", fullName));
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-          const userData = querySnapshot.docs[0].data();
-          document.getElementById("result").innerHTML = `🚫 Désolé ${firstName}, tu as déjà joué ! Ton lot était : <br><strong>${userData.prize}</strong>`;
-          return;
-        }
-        spinWheel(fullName);
-      } catch (e) {
-        console.error("Erreur Firebase:", e);
+      if (!snap.empty) {
+        document.getElementById("result").innerHTML = `🚫 ${firstName}, tu as déjà joué ! Ton lot : <strong>${snap.docs[0].data().prize}</strong>`;
+        return;
       }
+      spinWheel(fullName, firstName);
     };
 
-    function spinWheel(fullName) {
+    function spinWheel(fullName, firstName) {
       isSpinning = true;
-      const spinBtn = document.getElementById("spinBtn");
-      spinBtn.disabled = true;
-      spinBtn.style.opacity = "0.5";
-
       const wheel = document.getElementById("wheel");
       const randomDegree = Math.floor(Math.random() * 360);
       const totalDegrees = (10 * 360) + randomDegree;
-      
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
 
       setTimeout(async () => {
         const normalized = (360 - (randomDegree % 360)) % 360;
         const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
-        const wonPrize = lots[winIdx].text;
+        const prize = lots[winIdx].text;
 
-        let displayMessage = "";
-        switch(wonPrize) {
-          case "CLOPE": displayMessage = "Tu as perdu ! Tu dois une clope à Solenne."; break;
-          case "SHOT": displayMessage = "Tu as perdu ! Tu dois un shot à Solenne."; break;
-          case "UN BISOU": displayMessage = "Tu as gagné ! Un gros bisou de Solenne !"; break;
-          case "MISSION MYSTERE": displayMessage = "🕵️‍♂️ Mission acceptée ? Va voir Solenne pour ton défi !"; break;
-          case "VERRE DE VIN": displayMessage = "Santé ! Tu dois un verre de vin à Solenne."; break;
-          case "UN CASH": displayMessage = "C'est ton jour de chance ! Va voir une Mirouze pour récupérer un cash."; break;
-          default: displayMessage = `✨ Félicitations ! Tu as gagné : ${wonPrize} ✨`;
+        let msg = "";
+        switch(prize) {
+          case "CLOPE": msg = "Tu as perdu ! Tu dois une clope à Solenne."; break;
+          case "SHOT": msg = "Tu as perdu ! Tu dois un shot à Solenne."; break;
+          case "UN BISOU": msg = "Tu as gagné ! Un gros bisou de Solenne !"; break;
+          case "MISSION MYSTERE": msg = "🕵️‍♂️ Va voir Solenne pour ton défi !"; break;
+          case "VERRE DE VIN": msg = "Santé ! Tu dois un verre de vin à Solenne."; break;
+          case "UN CASH": msg = "Chanceux ! Va voir une Mirouze pour ton cash."; break;
         }
 
-        await addDoc(collection(db, "players"), {
-          name: fullName,
-          prize: wonPrize,
-          date: new Date()
-        });
-
-        document.getElementById("result").innerHTML = displayMessage;
+        await addDoc(collection(db, "players"), { name: fullName, prize: prize, date: new Date() });
+        document.getElementById("result").innerHTML = msg;
         document.getElementById("registration-form").style.display = "none";
         isSpinning = false;
       }, 5000);
     }
 
     window.sendMessage = async function() {
-      const text = document.getElementById("msg").value;
+      const text = document.getElementById("msg").value.trim();
       const firstName = document.getElementById("firstName").value.trim();
       const lastName = document.getElementById("lastName").value.trim();
+      if (!firstName || !lastName) { alert("Remplis ton nom en haut !"); return; }
+      if (!text) return;
 
-      if (!firstName || !lastName) {
-        alert("Haut les mains ! Remplis ton nom et prénom en haut pour signer ton message !");
-        return;
-      }
-      if (!text.trim()) return;
-
-      try {
-        await addDoc(collection(db, "messages"), { 
-          text: text, 
-          author: firstName + " " + lastName, 
-          date: new Date() 
-        });
-        document.getElementById("msg").value = "";
-      } catch (e) {
-        console.error(e);
-      }
+      await addDoc(collection(db, "messages"), { 
+        text: text, 
+        author: firstName + " " + lastName, 
+        date: new Date() 
+      });
+      document.getElementById("msg").value = "";
     };
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
       const container = document.getElementById("messages");
-      if (!container) return;
       container.innerHTML = "";
       snap.forEach(doc => {
         const data = doc.data();
         const div = document.createElement("div");
-        div.innerHTML = `<span class="msg-author">${data.author || 'Anonyme'} :</span> ${data.text}`;
+        div.innerHTML = `<span class="msg-author">${data.author} :</span> ${data.text}`;
         container.appendChild(div);
       });
     });
 
     function createGrid() {
       const container = document.getElementById('background-pattern');
-      const spacing = 200;
       const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
-      for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 10; col++) {
-          if (Math.random() < 0.3) continue;
-          const img = document.createElement('img');
-          img.src = images[Math.floor(Math.random() * images.length)];
-          img.className = 'bg-sticker';
-          img.style.left = (col * spacing) + "px";
-          img.style.top = (row * spacing) + "px";
-          img.style.transform = `rotate(${Math.floor(Math.random() * 91) - 45}deg)`;
-          img.onerror = function() { this.style.display = 'none'; };
-          container.appendChild(img);
-        }
+      for (let i = 0; i < 40; i++) {
+        const img = document.createElement('img');
+        img.src = images[Math.floor(Math.random() * images.length)];
+        img.className = 'bg-sticker';
+        img.style.left = Math.random() * 100 + "vw";
+        img.style.top = Math.random() * 200 + "vh";
+        img.style.transform = `rotate(${Math.random() * 360}deg)`;
+        img.onerror = function() { this.style.display = 'none'; };
+        container.appendChild(img);
       }
     }
 
-    window.onload = function() {
-      initWheel();
-      createGrid();
-    };
+    window.onload = () => { initWheel(); createGrid(); };
   </script>
 </body>
 </html>
