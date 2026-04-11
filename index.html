@@ -69,7 +69,6 @@
 
     .subtitle { text-align: center; font-size: 1.1em; margin-bottom: 40px; color: #d4a574; font-weight: 600; letter-spacing: 1px; }
 
-    /* --- Formulaire d'inscription --- */
     #registration-form {
       text-align: center;
       margin-bottom: 20px;
@@ -87,7 +86,7 @@
       flex-wrap: wrap;
     }
 
-    input[type="text"] {
+    input[type="text"], textarea {
       padding: 12px 20px;
       border-radius: 8px;
       border: 2px solid #FF8DA1;
@@ -95,8 +94,9 @@
       color: white;
       font-family: 'Outfit', sans-serif;
       font-size: 16px;
-      width: 200px;
     }
+
+    input[type="text"] { width: 200px; }
 
     .wheel-section { text-align: center; margin-top: 40px; margin-bottom: 50px; }
     
@@ -111,39 +111,26 @@
 
     #star-background {
       position: absolute;
-      width: 1000px; 
-      height: 1000px;
+      width: 1000px; height: 1000px;
       background-image: url('star.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      top: 50%;
-      left: 50%;
+      top: 50%; left: 50%;
       transform: translate(-50%, -50%) translate(-50px, 70px);
       z-index: 4;
     }
 
-    #wheel { 
-      width: 420px; 
-      height: 420px; 
-      border-radius: 50%; 
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); 
-      border: none;
-      background-color: transparent;
-      position: relative;
-      z-index: 5;
-    }
+    #wheel { width: 420px; height: 420px; border-radius: 50%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7); position: relative; z-index: 5; }
 
     #gun-pointer {
       position: absolute;
-      width: 120px; 
-      height: 120px;
+      width: 120px; height: 120px;
       background-image: url('gun.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      top: -70px;
-      left: 50%;
+      top: -70px; left: 50%;
       transform: translateX(-50%);
       z-index: 100;
       pointer-events: none;
@@ -151,14 +138,12 @@
 
     .wheel-center { 
       position: absolute; 
-      width: 150px; 
-      height: 150px; 
+      width: 150px; height: 150px; 
       background-image: url('sherif.png');
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center;
-      top: 50%; 
-      left: 50%; 
+      top: 50%; left: 50%; 
       transform: translate(-50%, -50%); 
       z-index: 25; 
     }
@@ -184,93 +169,34 @@
       transition: all 0.15s ease-out; 
     }
 
-    .spin-btn:hover {
-      transform: translateY(-2px) scale(1.03); 
-      filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7));
-    }
-
-    .spin-btn:active { 
-      transform: translateY(1px) scale(0.97); 
-      filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
-    }
+    .spin-btn:hover { transform: translateY(-2px) scale(1.03); filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7)); }
 
     #result { 
       margin-top: 35px; font-size: 24px; font-weight: 700; 
       min-height: 70px; padding: 25px; border: 2px solid #d4a574; 
-      color: #ffd89b; font-family: 'Outfit', sans-serif; 
-      position: relative;
-      z-index: 10;
-      background: rgba(0,0,0,0.3);
-      border-radius: 10px;
+      color: #ffd89b; position: relative; z-index: 10;
+      background: rgba(0,0,0,0.3); border-radius: 10px;
     }
 
-/* --- SECTION MESSAGES REVISITÉE --- */
+    /* --- SECTION MESSAGES --- */
     .messages-section { 
-      padding: 30px; 
-      margin-top: 40px; 
-      position: relative; 
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 30px;
-      flex-wrap: wrap; /* Pour le mobile */
-      justify-content: center;
+      padding: 30px; margin-top: 40px; position: relative; z-index: 10;
+      display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
     }
 
-    .wanted-poster {
-      width: 180px; /* Ajuste la taille de ton image wanted.png ici */
-      height: auto;
-      filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5));
-    }
+    .wanted-poster { width: 180px; height: auto; filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5)); }
 
-    .message-container-right {
-      flex: 1;
-      min-width: 300px;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+    .message-container-right { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
 
-    .message-input-box {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 20px;
-      border-radius: 10px;
-      border: 1px dashed #d4a574;
-    }
+    .message-input-box { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; border: 1px dashed #d4a574; }
 
-    #msg { 
-      width: 100%;
-      padding: 14px 18px; 
-      border: 2px solid #d4a574; 
-      background-color: rgba(0,0,0,0.4); 
-      color: white; 
-      margin-bottom: 10px;
-      border-radius: 5px;
-    }
+    #msg { width: 100%; height: 100px; background-color: rgba(0,0,0,0.4); color: white; margin-bottom: 10px; resize: none; }
 
-    #messages { 
-      max-height: 250px; 
-      overflow-y: auto; 
-      display: flex; 
-      flex-direction: column; 
-      margin-top: 15px;
-    }
+    #messages { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; margin-top: 15px; }
 
-    #messages div { 
-      background: rgba(212, 165, 116, 0.1); 
-      padding: 10px; 
-      margin-bottom: 8px; 
-      border-bottom: 1px solid #d4a574;
-      font-size: 0.9em;
-    }
+    #messages div { background: rgba(212, 165, 116, 0.1); padding: 10px; margin-bottom: 8px; border-bottom: 1px solid #d4a574; font-size: 0.9em; }
 
-    .msg-author {
-      color: #FF8DA1;
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 0.8em;
-      display: block;
-    }
+    .msg-author { color: #FF8DA1; font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; }
 
     @media (max-width: 600px) {
       #wheel { width: 320px; height: 320px; }
@@ -307,17 +233,14 @@
       <div id="result"></div>
     </div>
     
-<div class="messages-section">
+    <div class="messages-section">
       <img src="wanted.png" alt="Wanted" class="wanted-poster">
-
       <div class="message-container-right">
         <h2>💌 Mur des mots doux 💌</h2>
-        
         <div class="message-input-box">
-          <textarea id="msg" placeholder="Laisse un message à Solenne... (Le nom utilisé pour la roue sera affiché)"></textarea>
+          <textarea id="msg" placeholder="Laisse un message à Solenne... (Utilise les champs nom/prénom en haut)"></textarea>
           <button class="spin-btn" style="padding: 15px 30px; font-size: 14px;" onclick="sendMessage()">Envoyer mon message</button>
         </div>
-
         <div id="messages"></div>
       </div>
     </div>
@@ -391,10 +314,8 @@
 
     let isSpinning = false;
 
-    // --- NOUVELLE LOGIQUE DE VÉRIFICATION ---
     window.checkAndSpin = async function() {
       if (isSpinning) return;
-
       const firstName = document.getElementById("firstName").value.trim();
       const lastName = document.getElementById("lastName").value.trim();
 
@@ -406,7 +327,6 @@
       const fullName = (firstName + " " + lastName).toLowerCase();
 
       try {
-        // Vérifier si ce nom a déjà joué
         const q = query(collection(db, "players"), where("name", "==", fullName));
         const querySnapshot = await getDocs(q);
 
@@ -415,12 +335,9 @@
           document.getElementById("result").innerHTML = `🚫 Désolé ${firstName}, tu as déjà joué ! Ton lot était : <br><strong>${userData.prize}</strong>`;
           return;
         }
-
-        // Si nouveau joueur, on lance la roue
         spinWheel(fullName);
       } catch (e) {
         console.error("Erreur Firebase:", e);
-        alert("Un problème est survenu avec la base de données.");
       }
     };
 
@@ -437,45 +354,28 @@
       wheel.style.transition = "transform 5s cubic-bezier(0.1, 0, 0.2, 1)";
       wheel.style.transform = `rotate(${totalDegrees}deg)`;
 
-setTimeout(async () => {
+      setTimeout(async () => {
         const normalized = (360 - (randomDegree % 360)) % 360;
         const winIdx = Math.floor(normalized / (360 / lots.length)) % lots.length;
         const wonPrize = lots[winIdx].text;
 
-        // --- NOUVEAU : PERSONNALISATION DU MESSAGE ---
         let displayMessage = "";
-        
         switch(wonPrize) {
-          case "CLOPE":
-            displayMessage = "Tu as perdu ! Tu dois une clope à Solenne.";
-            break;
-          case "SHOT":
-            displayMessage = "Tu as perdu ! Tu dois un shot à Solenne.";
-            break;
-          case "UN BISOU":
-            displayMessage = "Tu as gagné ! Un gros bisou de Solenne !";
-            break;
-          case "MISSION MYSTERE":
-            displayMessage = "🕵️‍♂️ Mission acceptée ? Va voir Solenne pour ton défi !";
-            break;
-          case "VERRE DE VIN":
-            displayMessage = "Santé ! Tu dois un verre de vin à Solenne.";
-            break;
-          case "UN CASH":
-            displayMessage = "C'est ton jour de chance ! Va voir une Mirouze pour récupérer un cash.";
-            break;
-          default:
-            displayMessage = `✨ Félicitations ! Tu as gagné : ${wonPrize} ✨`;
+          case "CLOPE": displayMessage = "Tu as perdu ! Tu dois une clope à Solenne."; break;
+          case "SHOT": displayMessage = "Tu as perdu ! Tu dois un shot à Solenne."; break;
+          case "UN BISOU": displayMessage = "Tu as gagné ! Un gros bisou de Solenne !"; break;
+          case "MISSION MYSTERE": displayMessage = "🕵️‍♂️ Mission acceptée ? Va voir Solenne pour ton défi !"; break;
+          case "VERRE DE VIN": displayMessage = "Santé ! Tu dois un verre de vin à Solenne."; break;
+          case "UN CASH": displayMessage = "C'est ton jour de chance ! Va voir une Mirouze pour récupérer un cash."; break;
+          default: displayMessage = `✨ Félicitations ! Tu as gagné : ${wonPrize} ✨`;
         }
 
-        // Enregistrer le résultat dans Firebase (on garde le nom du lot court pour la BDD)
         await addDoc(collection(db, "players"), {
           name: fullName,
           prize: wonPrize,
           date: new Date()
         });
 
-        // Afficher le message personnalisé
         document.getElementById("result").innerHTML = displayMessage;
         document.getElementById("registration-form").style.display = "none";
         isSpinning = false;
@@ -484,9 +384,25 @@ setTimeout(async () => {
 
     window.sendMessage = async function() {
       const text = document.getElementById("msg").value;
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+
+      if (!firstName || !lastName) {
+        alert("Haut les mains ! Remplis ton nom et prénom en haut pour signer ton message !");
+        return;
+      }
       if (!text.trim()) return;
-      await addDoc(collection(db, "messages"), { text, date: new Date() });
-      document.getElementById("msg").value = "";
+
+      try {
+        await addDoc(collection(db, "messages"), { 
+          text: text, 
+          author: firstName + " " + lastName, 
+          date: new Date() 
+        });
+        document.getElementById("msg").value = "";
+      } catch (e) {
+        console.error(e);
+      }
     };
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
@@ -494,8 +410,9 @@ setTimeout(async () => {
       if (!container) return;
       container.innerHTML = "";
       snap.forEach(doc => {
+        const data = doc.data();
         const div = document.createElement("div");
-        div.innerText = doc.data().text;
+        div.innerHTML = `<span class="msg-author">${data.author || 'Anonyme'} :</span> ${data.text}`;
         container.appendChild(div);
       });
     });
