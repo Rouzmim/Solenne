@@ -177,29 +177,45 @@
       background: rgba(0,0,0,0.3); border-radius: 10px;
     }
 
-    /* Message Section */
+/* --- SECTION MESSAGES --- */
     .messages-section { 
-      padding: 30px; margin-top: 40px; position: relative; z-index: 10;
-      display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;
+      padding: 30px; 
+      margin-top: 40px; 
+      position: relative; 
+      z-index: 10;
+      display: flex;
+      align-items: flex-start; /* Aligne le haut de l'image avec le haut du formulaire */
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: nowrap; /* Garde l'image et la box côte à côte */
     }
 
-    .wanted-poster { width: 300px; height: auto; filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5)); }
+    .wanted-poster {
+      width: 150px; /* Taille de l'affiche */
+      height: auto;
+      flex-shrink: 0; /* Empêche l'image de rétrécir */
+      filter: drop-shadow(5px 5px 15px rgba(0,0,0,0.5));
+      margin-top: 10px; /* Petit ajustement pour l'aligner parfaitement */
+    }
 
-    .message-container-right { flex: 1; min-width: 300px; display: flex; flex-direction: column; gap: 15px; }
+    .message-container-right {
+      flex-grow: 1;
+      max-width: 500px; /* Évite que la box soit trop large */
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
 
-    .message-input-box { background: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 10px; border: 1px dashed #d4a574; }
-
-    #msg { width: 100%; height: 100px; background-color: rgba(0,0,0,0.4); color: white; margin-bottom: 10px; resize: none; }
-
-    #messages { max-height: 250px; overflow-y: auto; display: flex; flex-direction: column; margin-top: 15px; }
-
-    #messages div { background: rgba(212, 165, 116, 0.1); padding: 10px; margin-bottom: 8px; border-bottom: 1px solid #d4a574; font-size: 0.9em; }
-
-    .msg-author { color: #FF8DA1; font-weight: bold; text-transform: uppercase; font-size: 0.8em; display: block; margin-bottom: 3px;}
-
-    @media (max-width: 600px) {
-      #wheel { width: 320px; height: 320px; }
-      h1 { font-size: 2.2em; }
+    /* Pour le mobile : on repasse l'un sous l'autre */
+    @media (max-width: 650px) {
+      .messages-section {
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+      }
+      .wanted-poster {
+        width: 120px;
+      }
     }
   </style>
 </head>
@@ -229,14 +245,17 @@
       <div id="result"></div>
     </div>
     
-    <div class="messages-section">
+<div class="messages-section">
       <img src="wanted.png" alt="Wanted" class="wanted-poster">
+
       <div class="message-container-right">
-        <h2> Mur des posters </h2>
+        <h2 style="text-align: center; color: #FF8DA1; font-family: 'Climate Crisis'; font-size: 1.5em;">Wanted Messages</h2>
+        
         <div class="message-input-box">
-          <textarea id="msg" placeholder="Laisse un message à Solenne... (Le nom en haut sera utilisé)"></textarea>
-          <button class="spin-btn" style="padding: 15px 30px; font-size: 14px;" onclick="sendMessage()">Envoyer</button>
+          <textarea id="msg" placeholder="Ton message ici..."></textarea>
+          <button class="spin-btn" style="padding: 15px 30px; font-size: 14px; width: 100%;" onclick="sendMessage()">Envoyer</button>
         </div>
+
         <div id="messages"></div>
       </div>
     </div>
