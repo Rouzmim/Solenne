@@ -4,6 +4,8 @@
   box-sizing: border-box; 
 }
 
+
+
 #sacha-popup {
   position: fixed;
   top: 0;
@@ -434,4 +436,9 @@ input[type="text"]:focus {
     font-size: 18px;
     padding: 15px;
   }
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden;
 }
