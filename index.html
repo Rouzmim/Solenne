@@ -112,22 +112,13 @@ window.checkAndSpin = async function() {
 
   const f = document.getElementById("firstName").value.trim();
 
-  // Vérifie prénom
   if (!f) {
     alert("Remplis ton prénom Cowboy !");
     return;
   }
 
-  // Vérifie si déjà joué sur ce téléphone
-  if (localStorage.getItem('hasPlayed')) {
-    document.getElementById("result").innerHTML =
-      `🚫 Tu as déjà joué gros tricheur 🚫`;
-    return;
-  }
-
   const firstNameLower = f.toLowerCase();
 
-  // Vérifie Firebase
   const snap = await getDocs(
     query(
       collection(db, "players"),
@@ -137,7 +128,7 @@ window.checkAndSpin = async function() {
 
   if (!snap.empty) {
     document.getElementById("result").innerHTML =
-      `Ce prénom a déjà été utilisé :( Si tu as un problème, va voir Montaine`;
+      "Ce prénom a déjà été utilisé :( Si tu as un problème, va voir Montaine";
     return;
   }
 
@@ -145,12 +136,9 @@ window.checkAndSpin = async function() {
 
   const wheel = document.getElementById("wheel");
 
-  // Nombre de tours + angle aléatoire
   const extraRotation = 3600 + Math.floor(Math.random() * 360);
-
   deg += extraRotation;
 
-  // Animation
   wheel.style.transition = "transform 6s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
   wheel.style.transform = `rotate(${deg}deg)`;
 
@@ -159,43 +147,27 @@ window.checkAndSpin = async function() {
 
   setTimeout(async () => {
 
-    // Angle final
     const actualDeg = (360 - (deg % 360)) % 360;
-
-    // Taille d’un segment
     const segment = 360 / lots.length;
-
-    // Index du lot
     const winIdx = Math.floor(actualDeg / segment);
-
-    // Lot gagné
     const prize = lots[winIdx].text;
 
-    // Sauvegarde Firebase
     await addDoc(collection(db, "players"), {
       name: firstNameLower,
       prize,
       date: new Date()
     });
 
-    // Bloque le téléphone
-    localStorage.setItem('hasPlayed', 'true');
-
-    // Message final
     let finalMessage = "";
 
     if (prize === "UN ASTRO") {
-      finalMessage =
-        "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
+      finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
     } else if (prize === "MISSION SECRETE") {
-      finalMessage =
-        "Va voir Solenne cowboy, une mission t'attend !";
+      finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
     } else if (prize === "UN BISOU") {
-      finalMessage =
-        "Va voir Solenne cowboy, elle va te faire un bisou !";
+      finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
     } else {
-      finalMessage =
-        `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
+      finalMessage = `BRAVO ! Tu as gagné ${prize} !`;
     }
 
     document.getElementById("result").innerHTML = finalMessage;
