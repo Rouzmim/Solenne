@@ -20,15 +20,12 @@ body {
   align-items: center;
 }
 
-#background-pattern {
+.bg-sticker {
   position: absolute;
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%;
-  pointer-events: none;
+  width: 150px;
+  opacity: 0.9;
   z-index: 1;
-  overflow: hidden;
+  pointer-events: none;
 }
 
 .bg-sticker { 
@@ -125,21 +122,17 @@ button:active {
 input[type="text"] {
   width: 100%;
   max-width: 300px;
-  padding: 15px 20px;
-  font-size: 18px;
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  color: #1a1a2e; /* Texte foncé pour être lisible sur fond blanc */
-  background-color: white !important; /* Fond blanc pur pour bien voir la case */
-  border: 3px solid #FF8DA1;
+  padding: 15px;
   border-radius: 12px;
+  border: 2px solid #FF8DA1;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-size: 16px;
   outline: none;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
 }
 
 input[type="text"]::placeholder {
-  color: #999;
-  font-weight: 400;
+  color: rgba(255,255,255,0.7);
 }
 
 /* --- ROUE --- */
