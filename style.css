@@ -120,6 +120,8 @@ button:active {
 
 /* LA CORRECTION EST ICI */
 input[type="text"] {
+  position: relative;
+  z-index: 99999;
   width: 100%;
   max-width: 300px;
   padding: 15px;
