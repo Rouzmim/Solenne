@@ -105,58 +105,104 @@
     }
 
     let isSpinning = false;
+let isSpinning = false;
+let deg = 0;
+
 window.checkAndSpin = async function() {
   if (isSpinning) return;
-  
+
   const f = document.getElementById("firstName").value.trim();
-  
-  // 1. Vérification si le champ est vide
-  if (!f) return alert("Remplis ton prénom Cowboy !");
 
-  // 2. Vérification LocalStorage (Sécurité par téléphone/navigateur)
-  if (localStorage.getItem('hasPlayed')) {
-      document.getElementById("result").innerHTML = `🚫 Tu as déjà joué gros tricheur 🚫`;
-      return;
-  }
-
-  const firstNameLower = f.toLowerCase();
-  
-  // 3. Vérification Firebase (au cas où il change de téléphone mais garde le même prénom)
-  const snap = await getDocs(query(collection(db, "players"), where("name", "==", firstNameLower)));
-
-  if (!snap.empty) {
-    document.getElementById("result").innerHTML = `Ce prénom a déjà été utilisé :( Si tu as un problême, va voir Montaine`;
+  // Vérifie prénom
+  if (!f) {
+    alert("Remplis ton prénom Cowboy !");
     return;
   }
 
-setTimeout(async () => {
+  // Vérifie si déjà joué sur ce téléphone
+  if (localStorage.getItem('hasPlayed')) {
+    document.getElementById("result").innerHTML =
+      `🚫 Tu as déjà joué gros tricheur 🚫`;
+    return;
+  }
+
+  const firstNameLower = f.toLowerCase();
+
+  // Vérifie Firebase
+  const snap = await getDocs(
+    query(
+      collection(db, "players"),
+      where("name", "==", firstNameLower)
+    )
+  );
+
+  if (!snap.empty) {
+    document.getElementById("result").innerHTML =
+      `Ce prénom a déjà été utilisé :( Si tu as un problème, va voir Montaine`;
+    return;
+  }
+
+  isSpinning = true;
+
+  const wheel = document.getElementById("wheel");
+
+  // Nombre de tours + angle aléatoire
+  const extraRotation = 3600 + Math.floor(Math.random() * 360);
+
+  deg += extraRotation;
+
+  // Animation
+  wheel.style.transition = "transform 6s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
+  wheel.style.transform = `rotate(${deg}deg)`;
+
+  document.getElementById("result").innerHTML =
+    "La roue tourne... 🤠";
+
+  setTimeout(async () => {
+
+    // Angle final
     const actualDeg = (360 - (deg % 360)) % 360;
-    const winIdx = Math.floor(actualDeg / (360 / lots.length));
+
+    // Taille d’un segment
+    const segment = 360 / lots.length;
+
+    // Index du lot
+    const winIdx = Math.floor(actualDeg / segment);
+
+    // Lot gagné
     const prize = lots[winIdx].text;
-    
-    // Enregistrement Firebase
-    await addDoc(collection(db, "players"), { name: firstNameLower, prize, date: new Date() });
-    
-    // Enregistrement LocalStorage pour bloquer ce téléphone
+
+    // Sauvegarde Firebase
+    await addDoc(collection(db, "players"), {
+      name: firstNameLower,
+      prize,
+      date: new Date()
+    });
+
+    // Bloque le téléphone
     localStorage.setItem('hasPlayed', 'true');
 
-    // --- DEBUT DE LA MODIFICATION ---
+    // Message final
     let finalMessage = "";
+
     if (prize === "UN ASTRO") {
-      finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
+      finalMessage =
+        "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
     } else if (prize === "MISSION SECRETE") {
-      finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
+      finalMessage =
+        "Va voir Solenne cowboy, une mission t'attend !";
     } else if (prize === "UN BISOU") {
-      finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
+      finalMessage =
+        "Va voir Solenne cowboy, elle va te faire un bisou !";
     } else {
-      // Message par défaut pour les autres lots (Shot, Vin, Clope)
-      finalMessage = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
+      finalMessage =
+        `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
     }
 
     document.getElementById("result").innerHTML = finalMessage;
-    // --- FIN DE LA MODIFICATION ---
 
     isSpinning = false;
+
   }, 6000);
 };
 
