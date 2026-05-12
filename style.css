@@ -128,7 +128,7 @@ input[type="text"] {
   border: 2px solid #FF8DA1;
   border-radius: 12px;
 
-  background: rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.5);
   color: black;
 
   outline: none;
