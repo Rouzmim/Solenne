@@ -355,7 +355,7 @@ input[type="text"]:focus {
    #star-background {
     width: 300px;
     height: 300px;
-    transform: translate(-50%, -50%) translate(0px, 40px);
+    transform: translate(-25%, -25%) translate(0px, 40px);
   }
   .posted-message { 
     position: relative !important; 
@@ -408,7 +408,8 @@ input[type="text"]:focus {
 }
 
 html, body {
-  height: auto;
-  min-height: 100%;
+  height: auto !important;
+  min-height: 100vh;
   overflow-x: hidden;
+  overflow-y: auto !important;
 }
