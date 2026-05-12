@@ -118,6 +118,19 @@ window.checkAndSpin = async function() {
   }
 
   const firstNameLower = f.toLowerCase();
+  if (firstNameLower === "sacha") {
+  const popup = document.createElement("div");
+  popup.id = "sacha-popup";
+
+  popup.innerHTML = `
+    <div class="box">
+      sacha, ce site est à destination des non-addict aux jeux.
+    </div>
+  `;
+
+  document.body.appendChild(popup);
+  return;
+}
 
   const snap = await getDocs(
     query(
