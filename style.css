@@ -1,0 +1,311 @@
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  color: white;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-image: url('denim.jpg');
+  background-size: 600px auto;
+  background-repeat: repeat;
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#background-pattern {
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.bg-sticker { 
+  position: absolute; 
+  width: 150px; 
+  opacity: 0.9; 
+  z-index: 1; 
+}
+
+/* --- BOITE ROUE --- */
+.container {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(45, 49, 66, 0.95) 100%);
+  padding: 50px 40px;
+  max-width: 900px;
+  width: 95%;
+  border: 6px solid #FF8DA1;
+  border-radius: 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  position: relative;
+  z-index: 10;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Climate Crisis', sans-serif;
+  font-size: 3.5em;
+  text-transform: uppercase;
+  line-height: 0.85;
+  margin-bottom: 5px;
+  text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.subtitle { 
+  font-size: 1.1em; 
+  margin-bottom: 20px;
+  color: #d4a574; 
+  font-weight: 600; 
+}
+
+/* --- BOUTON ORIGINAL --- */
+button { 
+  background-image: url('bouton.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  color: white;
+  font-weight: 900;
+  font-family: 'Outfit', sans-serif;
+  font-size: 19px; 
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  border: none; 
+  cursor: pointer; 
+  padding: 30px 70px;
+  position: relative;
+  z-index: 10;
+  outline: none;
+  filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.6));
+  transition: all 0.15s ease-out; 
+}
+
+button:hover {
+  transform: translateY(-2px) scale(1.03); 
+  filter: drop-shadow(0px 12px 15px rgba(0, 0, 0, 0.7));
+}
+
+button:active { 
+  transform: translateY(1px) scale(0.97); 
+  filter: drop-shadow(0px 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* --- SAISIE NOM/PRENOM --- */
+#registration-form {
+  padding: 15px 30px !important;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.input-group {
+  display: flex;
+  gap: 15px !important;
+  justify-content: center;
+  margin-bottom: 15px !important;
+}
+
+input[type="text"] {
+  padding: 18px 25px !important;
+  border-radius: 12px !important;
+  border: 2px solid #FF8DA1 !important;
+  background: rgba(26, 26, 46, 0.9) !important;
+  color: white !important;
+  font-size: 18px !important;
+  width: 280px !important;
+  position: relative;
+  z-index: 20;
+}
+
+/* --- ROUE --- */
+.wheel-container { 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  margin: 30px 0 !important;
+  position: relative; 
+}
+
+#star-background {
+  position: absolute;
+  width: 1000px; 
+  height: 1000px;
+  background-image: url('star.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translate(-50px, 70px);
+  z-index: 4;
+}
+
+#wheel { 
+  width: 420px; 
+  height: 420px; 
+  position: relative; 
+  z-index: 5; 
+}
+
+#gun-pointer {
+  position: absolute; 
+  width: 120px; 
+  height: 120px;
+  background-image: url('gun.png'); 
+  background-size: contain; 
+  background-repeat: no-repeat;
+  top: -60px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  z-index: 100;
+}
+
+.wheel-center { 
+  position: absolute; 
+  width: 140px; 
+  height: 140px; 
+  background-image: url('sherif.png'); 
+  background-size: contain; 
+  background-repeat: no-repeat;
+  top: 50%; 
+  left: 50%; 
+  transform: translate(-50%, -50%); 
+  z-index: 25; 
+}
+
+#result { 
+  margin-top: 40px;
+  font-size: 22px; 
+  font-weight: 900; 
+  padding: 20px; 
+  background: rgba(0,0,0,0.5); 
+  border-radius: 20px;
+  position: relative;
+  z-index: 30;
+  border: 2px solid #FF8DA1;
+  min-height: 80px;
+}
+
+/* --- SECTION SAISIE MESSAGE --- */
+.input-section {
+  width: 95%; 
+  max-width: 900px; 
+  display: flex; 
+  align-items: center;
+  justify-content: center; 
+  gap: 40px; 
+  z-index: 10; 
+  margin-bottom: 50px;
+}
+
+.wanted-wrapper {
+  background: rgba(0, 0, 0, 0.8); 
+  padding: 25px; 
+  border-radius: 20px; 
+  border: 4px solid #FF8DA1;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6); 
+  flex-shrink: 0;
+}
+
+.wanted-poster { 
+  width: 250px; 
+  height: auto; 
+  display: block; 
+}
+
+.message-container-right { 
+  flex: 1; 
+  max-width: 500px; 
+}
+
+.wall-title {
+  font-family: 'Climate Crisis', sans-serif; 
+  font-size: 2.5em; 
+  color: #FFFFFF; 
+  text-align: center; 
+  margin-bottom: 25px; 
+  text-shadow: 3px 3px 0px #FF8DA1; 
+  text-transform: uppercase;
+}
+
+.message-input-box {
+  background: rgba(26, 26, 46, 0.9); 
+  padding: 25px; 
+  border-radius: 25px;
+  border: 2px solid #FF8DA1;
+}
+
+#msg { 
+  width: 100%; 
+  height: 110px; 
+  background: rgba(0,0,0,0.4); 
+  border-radius: 10px; 
+  margin-bottom: 15px; 
+  resize: none; 
+  color: white; 
+  padding: 10px; 
+  border: 1px solid #FF8DA1; 
+}
+
+/* --- LE MUR DES MESSAGES --- */
+#messages-wall {
+  width: 100%; 
+  min-height: 700px; 
+  position: relative; 
+  z-index: 10; 
+  margin-bottom: 100px;
+}
+
+.posted-message {
+  position: absolute; 
+  width: 240px;
+  background: rgba(0, 0, 0, 0.85); 
+  padding: 20px; 
+  border-radius: 10px;
+  border-left: 6px solid #FF8DA1; 
+  box-shadow: 10px 10px 25px rgba(0,0,0,0.6);
+  font-size: 1em; 
+  z-index: 10;
+}
+
+.msg-author { 
+  color: #d4a574; 
+  font-weight: 900; 
+  text-transform: uppercase; 
+  font-size: 0.85em; 
+  display: block; 
+  margin-bottom: 8px; 
+}
+
+/* --- MOBILE --- */
+@media (max-width: 800px) {
+  .input-section { flex-direction: column; }
+  .wanted-poster { width: 200px; }
+  #messages-wall { 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    height: auto; 
+  }
+  .posted-message { 
+    position: relative !important; 
+    left: 0 !important; 
+    top: 0 !important; 
+    margin: 15px 0; 
+    width: 90%; 
+    transform: none !important; 
+  }
+}
