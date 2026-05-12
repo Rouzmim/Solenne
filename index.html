@@ -243,7 +243,7 @@
         img.src = images[Math.floor(Math.random() * images.length)];
         img.className = 'bg-sticker';
         img.style.left = Math.random() * 95 + "vw";
-        img.style.top = Math.random() * 400 + "vh";
+        img.style.top = Math.random() * window.innerHeight + "px";
         img.style.transform = `rotate(${Math.random() * 360}deg)`;
         img.onerror = () => img.remove();
         container.appendChild(img);
