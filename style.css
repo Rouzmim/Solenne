@@ -119,15 +119,9 @@ button:active {
 }
 
 input[type="text"] {
-  padding: 18px 25px !important;
-  border-radius: 12px !important;
-  border: 2px solid #FF8DA1 !important;
-  background: rgba(26, 26, 46, 0.9) !important;
-  color: white !important;
-  font-size: 18px !important;
-  width: 280px !important;
-  position: relative;
-  z-index: 20;
+  /* ... tes autres styles ... */
+  width: 100% !important; /* Prend la largeur du groupe */
+  max-width: 300px !important; /* Mais ne dépasse pas une taille raisonnable */
 }
 
 /* --- ROUE --- */
