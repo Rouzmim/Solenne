@@ -129,12 +129,7 @@ window.checkAndSpin = async function() {
     return;
   }
 
-  isSpinning = true;
-  const deg = (12 * 360) + Math.floor(Math.random() * 360);
-  document.getElementById("wheel").style.transition = "6s cubic-bezier(0.15, 0, 0.15, 1)";
-  document.getElementById("wheel").style.transform = `rotate(${deg}deg)`;
-
-  setTimeout(async () => {
+setTimeout(async () => {
     const actualDeg = (360 - (deg % 360)) % 360;
     const winIdx = Math.floor(actualDeg / (360 / lots.length));
     const prize = lots[winIdx].text;
@@ -145,19 +140,34 @@ window.checkAndSpin = async function() {
     // Enregistrement LocalStorage pour bloquer ce téléphone
     localStorage.setItem('hasPlayed', 'true');
 
-    document.getElementById("result").innerHTML = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
+    // --- DEBUT DE LA MODIFICATION ---
+    let finalMessage = "";
+    if (prize === "UN ASTRO") {
+      finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
+    } else if (prize === "MISSION SECRETE") {
+      finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
+    } else if (prize === "UN BISOU") {
+      finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
+    } else {
+      // Message par défaut pour les autres lots (Shot, Vin, Clope)
+      finalMessage = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
+    }
+
+    document.getElementById("result").innerHTML = finalMessage;
+    // --- FIN DE LA MODIFICATION ---
+
     isSpinning = false;
   }, 6000);
 };
 
-    window.sendMessage = async function() {
-      const text = document.getElementById("msg").value.trim();
-      const f = document.getElementById("firstName").value.trim();
-      const l = document.getElementById("lastName").value.trim();
-      if (!f || !text) return alert("Nom et message requis !");
-      await addDoc(collection(db, "messages"), { text, author: f + " " + l, date: new Date() });
-      document.getElementById("msg").value = "";
-    };
+window.sendMessage = async function() {
+  const text = document.getElementById("msg").value.trim();
+  const f = document.getElementById("firstName").value.trim();
+  // On n'utilise plus que "f" (le prénom)
+  if (!f || !text) return alert("Prénom et message requis !");
+  await addDoc(collection(db, "messages"), { text, author: f, date: new Date() });
+  document.getElementById("msg").value = "";
+};
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
       const wall = document.getElementById("messages-wall");
