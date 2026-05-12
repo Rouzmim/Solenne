@@ -120,17 +120,28 @@ button:active {
 
 /* LA CORRECTION EST ICI */
 input[type="text"] {
-  position: relative;
-  z-index: 99999;
   width: 100%;
   max-width: 300px;
-  padding: 15px;
-  border-radius: 12px;
+
+  padding: 16px;
+  font-size: 18px;
+
   border: 2px solid #FF8DA1;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  font-size: 16px;
+  border-radius: 12px;
+
+  background: white;
+  color: black;
+
   outline: none;
+
+  position: relative;
+  z-index: 999;
+
+  pointer-events: auto;
+}
+
+input[type="text"]:focus {
+  border-color: #FFD1A4;
 }
 
 input[type="text"]::placeholder {
