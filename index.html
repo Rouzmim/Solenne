@@ -4,28 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Solenne fête ses 30 ans</title>
-  
-  <!-- Polices -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
-  
-  <!-- Liaison vers le fichier CSS -->
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
   <div id="background-pattern"></div>
-  
+
   <div class="container">
     <h1>Canadian Tuxedo is IN</h1>
     <p class="subtitle">Solenne fête ses 30 ans !</p>
 
-<div id="registration-form">
-  <div class="input-group">
-    <input type="text" id="firstName" placeholder="Ton Prénom">
-  </div>
-  <button id="spinBtn" class="spin-btn" onclick="checkAndSpin()">Lancer la roue</button>
-</div>
+    <div id="registration-form">
+      <div class="input-group">
+        <input type="text" id="firstName" placeholder="Ton Prénom">
+      </div>
+      <button id="spinBtn" onclick="checkAndSpin()">Lancer la roue</button>
+    </div>
 
     <div class="wheel-container">
       <div id="gun-pointer"></div>
@@ -33,30 +33,48 @@
       <svg id="wheel" viewBox="0 0 400 400"></svg>
       <div class="wheel-center"></div>
     </div>
-    
+
     <div id="result">Fais tourner la roue pour voir ton lot !</div>
   </div>
 
   <div class="input-section">
     <div class="wanted-wrapper">
-      <img src="wanted.png" alt="Wanted" class="wanted-poster">
+      <img src="wanted.png" class="wanted-poster">
     </div>
+
     <div class="message-container-right">
       <h2 class="wall-title">Avis de recherche</h2>
+
       <div class="message-input-box">
         <textarea id="msg" placeholder="Écris ton message ici..."></textarea>
-        <button class="spin-btn" style="width: 100%; padding: 20px; font-size: 16px; margin-top: 10px;" onclick="sendMessage()">
-          Poster le message
-        </button>
+        <button onclick="sendMessage()">Poster le message</button>
       </div>
     </div>
   </div>
 
   <div id="messages-wall"></div>
 
+  <!-- POPUP SACHA -->
+  <div id="sacha-popup" style="display:none;">
+    <div class="box">
+      sacha, ce site est à destination des non-addict aux jeux.
+      <br><br>
+      <button onclick="closePopup()">OK</button>
+    </div>
+  </div>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, getDocs, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import {
+      getFirestore,
+      collection,
+      addDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      getDocs,
+      where
+    } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCbv7swd0ttL9ZgGjuWFy3PcJ1yrsJoy-Y",
@@ -71,194 +89,132 @@
     const db = getFirestore(app);
 
     const lots = [
-      { text: "UN SHOT" }, { text: "UN VERRE DE VIN" }, { text: "MISSION SECRETE" },
-      { text: "UN BISOU" }, { text: "UN ASTRO" }, { text: "UNE CLOPE" }
+      { text: "UN SHOT" },
+      { text: "UN VERRE DE VIN" },
+      { text: "MISSION SECRETE" },
+      { text: "UN BISOU" },
+      { text: "UN ASTRO" },
+      { text: "UNE CLOPE" }
     ];
+
+    let isSpinning = false;
+    let deg = 0;
 
     function initWheel() {
       const svg = document.getElementById("wheel");
       const step = 360 / lots.length;
       svg.innerHTML = "";
+
       lots.forEach((lot, i) => {
         const start = i * step;
         const end = start + step;
+
         const x1 = 200 + 200 * Math.cos((start - 90) * Math.PI / 180);
         const y1 = 200 + 200 * Math.sin((start - 90) * Math.PI / 180);
         const x2 = 200 + 200 * Math.cos((end - 90) * Math.PI / 180);
         const y2 = 200 + 200 * Math.sin((end - 90) * Math.PI / 180);
-        let color = (i % 3 === 0) ? "#FF8DA1" : (i % 3 === 1) ? "#B9D9EB" : "#FFD1A4";
-        
-        svg.innerHTML += `<path d="M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z" fill="${color}" stroke="#FFFFFF" stroke-width="2"/>`;
-        
-        const textAngle = start + step / 2;
+
+        const color = i % 3 === 0 ? "#FF8DA1" : i % 3 === 1 ? "#B9D9EB" : "#FFD1A4";
+
         svg.innerHTML += `
-          <text x="310" y="200" 
-            fill="#1a1a2e" 
-            font-weight="900" 
-            font-size="16" 
-            text-anchor="middle" 
-            dominant-baseline="central"
+          <path d="M 200 200 L ${x1} ${y1} A 200 200 0 0 1 ${x2} ${y2} Z"
+            fill="${color}" stroke="#fff" stroke-width="2"/>
+        `;
+
+        const textAngle = start + step / 2;
+
+        svg.innerHTML += `
+          <text x="200" y="200"
+            fill="#1a1a2e"
+            font-size="14"
+            font-weight="900"
+            text-anchor="middle"
             transform="rotate(${textAngle - 90} 200 200)">
             ${lot.text}
-          </text>`;
+          </text>
+        `;
       });
     }
 
-    let isSpinning = false;
-let deg = 0;
+    // =====================
+    // POPUP
+    // =====================
+    window.closePopup = function () {
+      document.getElementById("sacha-popup").style.display = "none";
+    };
 
-window.checkAndSpin = async function() {
-  if (isSpinning) return;
-
-  const f = document.getElementById("firstName").value.trim();
-
-  if (!f) {
-    alert("Remplis ton prénom Cowboy !");
-    return;
-  }
-
-  const firstNameLower = f.toLowerCase();
-if (firstNameLower === "sacha") {
-  const popup = document.createElement("div");
-  popup.id = "sacha-popup";
-
-  popup.innerHTML = `
-    <div class="box">
-      sacha, ce site est à destination des non-addict aux jeux.
-      <br><br>
-      <button onclick="document.getElementById('sacha-popup').remove()">
-        OK
-      </button>
-    </div>
-  `;
-
-  document.body.appendChild(popup);
-
-  isSpinning = false;
-  return;
-}
-
-  const snap = await getDocs(
-    query(
-      collection(db, "players"),
-      where("name", "==", firstNameLower)
-    )
-  );
-
-  if (!snap.empty) {
-    document.getElementById("result").innerHTML =
-      "Ce prénom a déjà été utilisé :( Si tu as un problème, va voir Montaine";
-    return;
-  }
-
-  isSpinning = true;
-
-  const wheel = document.getElementById("wheel");
-
-  const extraRotation = 3600 + Math.floor(Math.random() * 360);
-  deg += extraRotation;
-
-  wheel.style.transition = "transform 6s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
-  wheel.style.transform = `rotate(${deg}deg)`;
-
-  document.getElementById("result").innerHTML =
-    "La roue tourne... 🤠";
-
-  setTimeout(async () => {
-
-    const actualDeg = (360 - (deg % 360)) % 360;
-    const segment = 360 / lots.length;
-    const winIdx = Math.floor(actualDeg / segment);
-    const prize = lots[winIdx].text;
-
-    await addDoc(collection(db, "players"), {
-      name: firstNameLower,
-      prize,
-      date: new Date()
-    });
-
-    let finalMessage = "";
-
-    if (prize === "UN ASTRO") {
-      finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
-    } else if (prize === "MISSION SECRETE") {
-      finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
-    } else if (prize === "UN BISOU") {
-      finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
-    } else {
-      finalMessage = `BRAVO ! Tu dois offrir ${prize} à Solenne !`;
+    function showSachaPopup() {
+      document.getElementById("sacha-popup").style.display = "flex";
     }
 
-    document.getElementById("result").innerHTML = finalMessage;
+    // =====================
+    // ROULETTE
+    // =====================
+    window.checkAndSpin = async function () {
+      if (isSpinning) return;
 
-    isSpinning = false;
+      const f = document.getElementById("firstName").value.trim();
+      if (!f) return alert("Remplis ton prénom Cowboy !");
 
-  }, 6000);
-};
+      const firstNameLower = f.toLowerCase();
 
-window.sendMessage = async function() {
-  const text = document.getElementById("msg").value.trim();
-  const f = document.getElementById("firstName").value.trim();
-  // On n'utilise plus que "f" (le prénom)
-  if (!f || !text) return alert("Prénom et message requis !");
-  await addDoc(collection(db, "messages"), { text, author: f, date: new Date() });
-  document.getElementById("msg").value = "";
-};
-
-    onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
-      const wall = document.getElementById("messages-wall");
-      wall.innerHTML = "";
-      const positions = [];
-      const width = window.innerWidth - 300;
-      const height = 600;
-
-      snap.forEach(doc => {
-        const d = doc.data();
-        const div = document.createElement("div");
-        div.className = "posted-message";
-        div.innerHTML = `<span class="msg-author">${d.author} :</span> ${d.text}`;
-
-        let x, y, collision;
-        let attempts = 0;
-        do {
-          collision = false;
-          x = Math.random() * width;
-          y = Math.random() * height;
-          for (let p of positions) {
-            if (Math.abs(x - p.x) < 250 && Math.abs(y - p.y) < 140) { collision = true; break; }
-          }
-          attempts++;
-        } while (collision && attempts < 30);
-
-        positions.push({ x, y });
-        div.style.left = Math.max(20, x) + "px";
-        div.style.top = y + "px";
-        div.style.transform = `rotate(${Math.random() * 14 - 7}deg)`;
-        wall.appendChild(div);
-      });
-    });
-
-    function createGrid() {
-      const container = document.getElementById('background-pattern');
-      const images = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png'];
-      for (let i = 0; i < 40; i++) {
-        const img = document.createElement('img');
-        img.src = images[Math.floor(Math.random() * images.length)];
-        img.className = 'bg-sticker';
-        img.style.left = Math.random() * 95 + "vw";
-        img.style.top = Math.random() * 400 + "vh"; 
-        img.style.transform = `rotate(${Math.random() * 360}deg)`;
-        img.onerror = () => img.remove();
-        container.appendChild(img);
+      // 🔴 EASTER EGG SACHA
+      if (firstNameLower === "sacha") {
+        showSachaPopup();
+        return;
       }
-    }
 
-    window.onload = () => { 
-      window.scrollTo(0, 0); 
-      initWheel(); 
-      createGrid(); 
+      isSpinning = true;
+
+      const wheel = document.getElementById("wheel");
+
+      const extraRotation = 3600 + Math.floor(Math.random() * 360);
+      deg += extraRotation;
+
+      wheel.style.transition = "transform 6s cubic-bezier(0.17, 0.67, 0.12, 0.99)";
+      wheel.style.transform = `rotate(${deg}deg)`;
+
+      document.getElementById("result").innerHTML = "La roue tourne... 🤠";
+
+      setTimeout(async () => {
+        const actualDeg = (360 - (deg % 360)) % 360;
+        const segment = 360 / lots.length;
+        const winIdx = Math.floor(actualDeg / segment);
+        const prize = lots[winIdx].text;
+
+        await addDoc(collection(db, "players"), {
+          name: firstNameLower,
+          prize,
+          date: new Date()
+        });
+
+        document.getElementById("result").innerHTML =
+          `Tu as gagné : ${prize}`;
+
+        isSpinning = false;
+      }, 6000);
+    };
+
+    window.sendMessage = async function () {
+      const text = document.getElementById("msg").value.trim();
+      const f = document.getElementById("firstName").value.trim();
+
+      if (!f || !text) return alert("Prénom et message requis !");
+
+      await addDoc(collection(db, "messages"), {
+        text,
+        author: f,
+        date: new Date()
+      });
+
+      document.getElementById("msg").value = "";
+    };
+
+    window.onload = () => {
+      initWheel();
     };
   </script>
+
 </body>
 </html>
 </html>
