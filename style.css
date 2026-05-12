@@ -100,37 +100,6 @@ h1 {
   font-weight: 600; 
 }
 
-#sacha-popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-
-  background: rgba(0,0,0,0.85);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 999999;
-}
-
-#sacha-popup .box {
-  background: #ff1e1e;
-  color: white;
-
-  padding: 40px;
-  border-radius: 20px;
-
-  font-size: 22px;
-  font-weight: 900;
-  text-align: center;
-
-  max-width: 500px;
-
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
 
 /* --- BOUTON ORIGINAL --- */
 button { 
@@ -383,6 +352,11 @@ input[type="text"]:focus {
     align-items: center; 
     height: auto; 
   }
+   #star-background {
+    width: 500px;
+    height: 500px;
+    transform: translate(-50%, -50%) translate(0px, 40px);
+  }
   .posted-message { 
     position: relative !important; 
     left: 0 !important; 
@@ -404,11 +378,6 @@ input[type="text"]:focus {
   #wheel {
     width: 300px;
     height: 300px;
-  }
-
-  #star-background {
-    width: 700px;
-    height: 700px;
   }
 
   #gun-pointer {
@@ -439,6 +408,7 @@ input[type="text"]:focus {
 }
 
 html, body {
-  width: 100%;
+  height: auto;
+  min-height: 100%;
   overflow-x: hidden;
 }
