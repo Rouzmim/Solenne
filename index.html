@@ -104,70 +104,73 @@
       });
     }
 
-    let isSpinning = false;
-window.checkAndSpin = async function() {
-  if (isSpinning) return;
-  
-  const f = document.getElementById("firstName").value.trim();
-  
-  // 1. Vérification si le champ est vide
-  if (!f) return alert("Remplis ton prénom Cowboy !");
+   let isSpinning = false;
 
-  // 2. Vérification LocalStorage (Sécurité par téléphone/navigateur)
-  if (localStorage.getItem('hasPlayed')) {
-      document.getElementById("result").innerHTML = `🚫 Tu as déjà joué gros tricheur 🚫`;
-      return;
-  }
+    window.checkAndSpin = async function() {
+      if (isSpinning) return;
+      
+      const f = document.getElementById("firstName").value.trim();
+      
+      // 1. Vérification si le champ est vide
+      if (!f) return alert("Remplis ton prénom Cowboy !");
 
-  const firstNameLower = f.toLowerCase();
-  
-  // 3. Vérification Firebase (au cas où il change de téléphone mais garde le même prénom)
-  const snap = await getDocs(query(collection(db, "players"), where("name", "==", firstNameLower)));
+      // 2. Vérification LocalStorage (Sécurité par téléphone/navigateur)
+      if (localStorage.getItem('hasPlayed')) {
+          document.getElementById("result").innerHTML = `🚫 Tu as déjà joué gros tricheur 🚫`;
+          return;
+      }
 
-  if (!snap.empty) {
-    document.getElementById("result").innerHTML = `Ce prénom a déjà été utilisé :( Si tu as un problême, va voir Montaine`;
-    return;
-  }
+      const firstNameLower = f.toLowerCase();
+      
+      // 3. Vérification Firebase
+      const snap = await getDocs(query(collection(db, "players"), where("name", "==", firstNameLower)));
 
-setTimeout(async () => {
-    const actualDeg = (360 - (deg % 360)) % 360;
-    const winIdx = Math.floor(actualDeg / (360 / lots.length));
-    const prize = lots[winIdx].text;
-    
-    // Enregistrement Firebase
-    await addDoc(collection(db, "players"), { name: firstNameLower, prize, date: new Date() });
-    
-    // Enregistrement LocalStorage pour bloquer ce téléphone
-    localStorage.setItem('hasPlayed', 'true');
+      if (!snap.empty) {
+        document.getElementById("result").innerHTML = `Ce prénom a déjà été utilisé :( Si tu as un problème, va voir Montaine`;
+        return;
+      }
 
-    // --- DEBUT DE LA MODIFICATION ---
-    let finalMessage = "";
-    if (prize === "UN ASTRO") {
-      finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
-    } else if (prize === "MISSION SECRETE") {
-      finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
-    } else if (prize === "UN BISOU") {
-      finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
-    } else {
-      // Message par défaut pour les autres lots (Shot, Vin, Clope)
-      finalMessage = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
-    }
+      // --- LE CODE QUI MANQUAIT EST ICI ---
+      isSpinning = true;
+      const deg = (12 * 360) + Math.floor(Math.random() * 360);
+      document.getElementById("wheel").style.transition = "6s cubic-bezier(0.15, 0, 0.15, 1)";
+      document.getElementById("wheel").style.transform = `rotate(${deg}deg)`;
 
-    document.getElementById("result").innerHTML = finalMessage;
-    // --- FIN DE LA MODIFICATION ---
+      setTimeout(async () => {
+        const actualDeg = (360 - (deg % 360)) % 360;
+        const winIdx = Math.floor(actualDeg / (360 / lots.length));
+        const prize = lots[winIdx].text;
+        
+        // Enregistrement Firebase
+        await addDoc(collection(db, "players"), { name: firstNameLower, prize, date: new Date() });
+        
+        // Enregistrement LocalStorage
+        localStorage.setItem('hasPlayed', 'true');
 
-    isSpinning = false;
-  }, 6000);
-};
+        // Messages personnalisés selon le lot
+        let finalMessage = "";
+        if (prize === "UN ASTRO") {
+          finalMessage = "BRAVO ! Va voir Montaine pour récupérer ton Astro !";
+        } else if (prize === "MISSION SECRETE") {
+          finalMessage = "Va voir Solenne cowboy, une mission t'attend !";
+        } else if (prize === "UN BISOU") {
+          finalMessage = "Va voir Solenne cowboy, elle va te faire un bisou !";
+        } else {
+          finalMessage = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
+        }
 
-window.sendMessage = async function() {
-  const text = document.getElementById("msg").value.trim();
-  const f = document.getElementById("firstName").value.trim();
-  // On n'utilise plus que "f" (le prénom)
-  if (!f || !text) return alert("Prénom et message requis !");
-  await addDoc(collection(db, "messages"), { text, author: f, date: new Date() });
-  document.getElementById("msg").value = "";
-};
+        document.getElementById("result").innerHTML = finalMessage;
+        isSpinning = false;
+      }, 6000);
+    };
+
+    window.sendMessage = async function() {
+      const text = document.getElementById("msg").value.trim();
+      const f = document.getElementById("firstName").value.trim();
+      if (!f || !text) return alert("Prénom et message requis !");
+      await addDoc(collection(db, "messages"), { text, author: f, date: new Date() });
+      document.getElementById("msg").value = "";
+    };
 
     onSnapshot(query(collection(db, "messages"), orderBy("date", "desc")), snap => {
       const wall = document.getElementById("messages-wall");
