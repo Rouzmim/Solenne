@@ -66,6 +66,38 @@ h1 {
   font-weight: 600; 
 }
 
+#sacha-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  background: rgba(0,0,0,0.85);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999999;
+}
+
+#sacha-popup .box {
+  background: #ff1e1e;
+  color: white;
+
+  padding: 40px;
+  border-radius: 20px;
+
+  font-size: 22px;
+  font-weight: 900;
+  text-align: center;
+
+  max-width: 500px;
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
 /* --- BOUTON ORIGINAL --- */
 button { 
   background-image: url('bouton.png');
