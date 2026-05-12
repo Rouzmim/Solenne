@@ -104,24 +104,42 @@ button:active {
 
 /* --- SAISIE NOM/PRENOM --- */
 #registration-form {
-  padding: 15px 30px !important;
-  margin-bottom: 10px;
+  padding: 20px !important;
+  margin-bottom: 20px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .input-group {
   display: flex;
-  gap: 15px !important;
   justify-content: center;
-  margin-bottom: 15px !important;
+  width: 100%;
 }
 
+/* LA CORRECTION EST ICI */
 input[type="text"] {
-  /* ... tes autres styles ... */
-  width: 100% !important; /* Prend la largeur du groupe */
-  max-width: 300px !important; /* Mais ne dépasse pas une taille raisonnable */
+  width: 100%;
+  max-width: 300px;
+  padding: 15px 20px;
+  font-size: 18px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  color: #1a1a2e; /* Texte foncé pour être lisible sur fond blanc */
+  background-color: white !important; /* Fond blanc pur pour bien voir la case */
+  border: 3px solid #FF8DA1;
+  border-radius: 12px;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+}
+
+input[type="text"]::placeholder {
+  color: #999;
+  font-weight: 400;
 }
 
 /* --- ROUE --- */
