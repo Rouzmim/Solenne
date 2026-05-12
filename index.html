@@ -72,7 +72,7 @@
 
     const lots = [
       { text: "UN SHOT" }, { text: "UN VERRE DE VIN" }, { text: "MISSION SECRETE" },
-      { text: "UN BISOU" }, { text: "UN CASH" }, { text: "UNE CLOPE" }
+      { text: "UN BISOU" }, { text: "UN ASTRO" }, { text: "UNE CLOPE" }
     ];
 
     function initWheel() {
@@ -115,7 +115,7 @@ window.checkAndSpin = async function() {
 
   // 2. Vérification LocalStorage (Sécurité par téléphone/navigateur)
   if (localStorage.getItem('hasPlayed')) {
-      document.getElementById("result").innerHTML = `🚫 Tu as déjà tenté ta chance !`;
+      document.getElementById("result").innerHTML = `🚫 Tu as déjà joué gros tricheur 🚫`;
       return;
   }
 
@@ -125,7 +125,7 @@ window.checkAndSpin = async function() {
   const snap = await getDocs(query(collection(db, "players"), where("name", "==", firstNameLower)));
 
   if (!snap.empty) {
-    document.getElementById("result").innerHTML = `🚫 Ce prénom a déjà été utilisé !`;
+    document.getElementById("result").innerHTML = `Ce prénom a déjà été utilisé :( Si tu as un problême, va voir Montaine`;
     return;
   }
 
@@ -145,7 +145,7 @@ window.checkAndSpin = async function() {
     // Enregistrement LocalStorage pour bloquer ce téléphone
     localStorage.setItem('hasPlayed', 'true');
 
-    document.getElementById("result").innerHTML = `🎯 BRAVO ! TU AS GAGNÉ : ${prize}`;
+    document.getElementById("result").innerHTML = `BRAVO ! Tu as gagné le droit d'offrir ${prize} à Solenne !`;
     isSpinning = false;
   }, 6000);
 };
